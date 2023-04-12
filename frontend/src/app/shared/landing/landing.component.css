@@ -1,0 +1,102 @@
+.Landing {
+  animation: animate 16s ease-in-out infinite;
+  font-family: "Cormorant", serif;
+  background-size: cover;
+  color: white;
+  height: 80vh;
+  margin: 1%;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  width: auto;
+}
+
+.content-cards {
+  position: relative;
+  height: 65vh;
+  margin-top: 2%;
+}
+
+/* Banner CSS */
+
+.banner-div {
+  max-width: 55%;
+  position: absolute;
+  bottom: 30%;
+}
+
+@media screen and (max-width: 900px) {
+  .Landing {
+    background-position: center;
+    animation: animate 16s ease-in-out infinite;
+  }
+
+  .flex {
+    flex-direction: column;
+  }
+
+  .banner-div {
+    max-width: 90%;
+    position: absolute;
+  }
+
+  .content-cards {
+    position: relative;
+    height: auto;
+    margin-top: 5%;
+  }
+
+  h1 {
+    font-size: 48px;
+  }
+
+  h2 {
+    font-size: 36px;
+  }
+
+  h3 {
+    font-size: 24px;
+  }
+
+  @keyframes animate {
+    0%,
+    100% {
+      background-image: url(../../../assets/bg/dog4.png);
+    }
+
+    50% {
+      background-image: url(../../../assets/bg/dog2.png);
+    }
+  }
+}
+
+h1 {
+  font-size: 95px;
+}
+
+h2 {
+  font-size: 48px;
+}
+
+h3 {
+  font-size: 26px;
+}
+
+@keyframes animate {
+  0%,
+  100% {
+    background-image: url(../../../assets/bg/dog1.png);
+  }
+
+  25% {
+    background-image: url(../../../assets/bg/dog2.png);
+  }
+
+  50% {
+    background-image: url(../../../assets/bg/dog3.png);
+  }
+
+  75% {
+    background-image: url(../../../assets/bg/dog4.png);
+  }
+}

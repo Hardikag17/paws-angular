@@ -4,9 +4,15 @@ body {
   padding: 0%;
   font-family: "Cormorant", serif;
   color: black;
+  height: 100%;
 }
 
 a {
   color: #0d0d0d;
   text-decoration: none;
+}
+
+.btn {
+  border-radius: 30px;
+  color: white;
 }
