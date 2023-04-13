@@ -7,24 +7,18 @@ import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { SharedModule } from './shared/shared.module';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { ButtonComponent } from './components/button/button.component';
+import { NavbarComponent } from './shared/components/navbar/navbar.component';
+import { FooterComponent } from './shared/components/footer/footer.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavbarComponent,
-    FooterComponent,
-    ButtonComponent,
-  ],
+  declarations: [AppComponent, NavbarComponent, FooterComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     CommonModule,
+    SharedModule,
     AuthModule,
     UsersModule,
-    SharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

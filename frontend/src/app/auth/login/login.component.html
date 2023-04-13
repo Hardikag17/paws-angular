@@ -1,1 +1,57 @@
-<p>login works!</p>
+<div id="Login" class="container-fluid m-0 p-0 d-flex">
+  <div class="image-div">
+    <img
+      class="img-fluid mx-auto h-100"
+      src="./assets/register/login.jpg"
+      alt="animal help"
+    />
+  </div>
+  <div class="content-div container">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="card h-100">
+        <div class="card-body my-5">
+          <h2 class="text-uppercase text-center mb-5">Welcome, User</h2>
+          <form>
+            <div class="form-outline mb-4">
+              <input type="email" class="form-control form-control-lg" />
+              <label class="form-label" for="form3Example3cg">
+                Your Email
+              </label>
+            </div>
+
+            <div class="form-outline mb-4">
+              <input
+                type="password"
+                name="password"
+                class="form-control form-control-lg"
+              />
+              <label class="form-label" for="form3Example4cg"> Password </label>
+            </div>
+
+            <div class="d-flex justify-content-center">
+              <app-button type="submit" text="Login"></app-button>
+            </div>
+
+            <h4 class="text-center my-4">OR, Login using</h4>
+            <div class="form-outline mb-4">
+              <div class="text-center">
+                <app-button
+                  class="btn btn-link btn-floating mx-1"
+                  text="google icon"
+                >
+                </app-button>
+              </div>
+            </div>
+
+            <p class="text-center text-muted mt-5 mb-0">
+              Don't have an account?
+              <a href="/register" class="fw-bold text-body">
+                <u>Register here</u>
+              </a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

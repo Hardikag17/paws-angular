@@ -1,0 +1,39 @@
+#Register {
+  margin: 0%;
+  padding: 0%;
+  font-family: "Cormorant", serif;
+  background-color: antiquewhite;
+  font-weight: 400;
+  color: black;
+  width: 100%;
+  overflow: hidden;
+}
+
+.image-div {
+  width: 70%;
+  height: 85vh;
+}
+
+.content-div {
+  width: 30%;
+  height: 85vh;
+}
+
+@media screen and (max-width: 900px) {
+  .content-div {
+    width: 90%;
+    height: 90vh;
+    margin-top: 2%;
+  }
+  .image-div {
+    display: none;
+  }
+}
+
+input.ng-invalid {
+  border-left: 5px solid rgba(255, 0, 0, 0.803);
+}
+
+input.ng-valid {
+  border-left: 5px solid rgba(0, 128, 0, 0.799);
+}

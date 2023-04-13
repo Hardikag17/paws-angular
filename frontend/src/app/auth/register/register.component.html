@@ -1,1 +1,165 @@
-<p>register works!</p>
+<div id="Register" class="container-fluid m-0 p-0 d-flex">
+  <div class="image-div d-none d-md-block">
+    <img
+      class="img-fluid mx-auto h-100"
+      src="../assets/register/login.jpg"
+      alt="animal help"
+    />
+  </div>
+  <div class="content-div container">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="card h-100">
+        <div class="card-body">
+          <h2 class="text-uppercase text-center mb-5">Create an account</h2>
+
+          <form
+            #registerform="ngForm"
+            (ngSubmit)="handleFormSubmit()"
+            novalidate
+          >
+            <div class="form-outline mb-4">
+              <input
+                type="text"
+                [(ngModel)]="user.name"
+                class="form-control form-control-lg"
+                name="name"
+                minlength="3"
+                maxlength="15"
+                required
+                #name="ngModel"
+              />
+
+              <label class="form-label" for="form3Example1cg">
+                Your Name
+              </label>
+              <div
+                *ngIf="!name?.valid && (name?.dirty || name?.touched)"
+                class="alert alert-danger py-0"
+                role="alert"
+              >
+                Name is mandatory
+              </div>
+            </div>
+
+            <div class="form-outline mb-4">
+              <input
+                type="email"
+                name="email"
+                minlength="6"
+                maxlength="20"
+                [(ngModel)]="user.email"
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                class="form-control form-control-lg"
+                email
+                #email="ngModel"
+                required
+              />
+              <label class="form-label" for="form3Example3cg">
+                Your Email
+              </label>
+              <div
+                *ngIf="!email?.valid && (email?.dirty || email.touched)"
+                class="alert alert-danger py-0"
+                role="alert"
+              >
+                email is mandatory
+              </div>
+            </div>
+
+            <div class="form-outline mb-4">
+              <input
+                type="password"
+                name="password"
+                minlength="5"
+                maxlength="15"
+                [(ngModel)]="user.password"
+                class="form-control form-control-lg"
+                #password="ngModel"
+                required
+              />
+              <label class="form-label" for="form3Example4cg"> Password </label>
+              <div
+                *ngIf="
+                  !password?.valid && (password?.dirty || password.touched)
+                "
+                class="alert alert-danger py-0"
+                role="alert"
+              >
+                Password is mandatory
+              </div>
+            </div>
+
+            <div class="form-outline mb-4">
+              <input
+                type="password"
+                name="confirm password"
+                minlength="5"
+                maxlength="15"
+                [(ngModel)]="user.confirmPasswrd"
+                #confirmPasswrd="ngModel"
+                class="form-control form-control-lg"
+                [style.border-left]="
+                  user.password != user.confirmPasswrd
+                    ? '5px red solid'
+                    : '5px green solid'
+                "
+                required
+              />
+              <label class="form-label" for="form3Example4cdg">
+                Confirm password
+              </label>
+              <div
+                *ngIf="user.password != user.confirmPasswrd"
+                class="alert alert-danger py-0"
+                role="alert"
+              >
+                Password does not match
+              </div>
+            </div>
+
+            <div class="form-check d-flex justify-content-center mb-3">
+              <input
+                class="form-check-input me-2"
+                type="checkbox"
+                name="terms"
+                required
+              />
+              <label class="form-check-label" for="form2Example3g">
+                I agree all statements in
+                <a href="#!" class="text-body">
+                  <u>Terms of service</u>
+                </a>
+              </label>
+              <!-- <div
+                *ngIf="!terms.valid && (terms.touched || terms.dirty)"
+                class="alert alert-danger py-0"
+                role="alert"
+              >
+                kindly accept Terms and Conditions
+              </div> -->
+            </div>
+
+            <div class="d-flex justify-content-center">
+              <button
+                type="submit"
+                class="btn btn-success btn-lg banner-btn text-white"
+                [disabled]="
+                  registerform?.invalid || user.password != user.confirmPasswrd
+                "
+              >
+                Register
+              </button>
+            </div>
+
+            <p class="text-center text-muted mt-3 mb-0">
+              Have already an account?
+              <a href="/login" class="fw-bold text-body">
+                <u>Login here</u>
+              </a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
