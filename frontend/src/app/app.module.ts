@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,6 +20,7 @@ import { FooterComponent } from './shared/components/footer/footer.component';
     SharedModule,
     AuthModule,
     UsersModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { API_ROOT } from '../api-config';
-import { User } from '../interfaces/user';
+import { User, UserLogin, UserRegister } from '../interfaces/user';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 export class UserService {
   constructor(private http: HttpClient) {}
 
-  newUser = (user: User) => {
+  newUser = (user: UserRegister) => {
     return this.http.post(`${API_ROOT}/user/register`, {
       name: user.name,
       email: user.email,
@@ -18,7 +18,7 @@ export class UserService {
     });
   };
 
-  login = (user: User) => {
+  login = (user: UserLogin) => {
     return this.http.post(
       `${API_ROOT}/user/login`,
       {

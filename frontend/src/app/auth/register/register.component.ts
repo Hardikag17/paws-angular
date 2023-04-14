@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { User } from 'src/app/interfaces/user';
+import { UserRegister } from 'src/app/interfaces/user';
 import { UserService } from 'src/app/services/user.service';
 // import { v4 as uuidv4 } from 'uuid';
 
@@ -9,8 +9,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent {
-  user: User = {
-    userId: '',
+  user: UserRegister = {
     email: '',
     name: '',
     password: '',
@@ -22,8 +21,7 @@ export class RegisterComponent {
   ngOnInit(): void {}
 
   handleFormSubmit = () => {
-    const newuser: User = {
-      userId: '',
+    const newuser: UserRegister = {
       name: this.user.name,
       email: this.user.email,
       password: this.user.password,
