@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { UserRegister } from 'src/app/interfaces/user';
-import { UserService } from 'src/app/services/user.service';
-// import { v4 as uuidv4 } from 'uuid';
+import { UserService } from 'src/app/services/api/user.service';
 
 @Component({
   selector: 'app-register',
@@ -28,6 +27,14 @@ export class RegisterComponent {
       confirmPasswrd: this.user.confirmPasswrd,
     };
 
-    this.userService.newUser(newuser);
+    console.log(newuser);
+    this.userService.newUser(newuser).subscribe({
+      next: (res: any) => {
+        console.log(res);
+      },
+      error: (error) => {
+        console.error('There was an error!', error);
+      },
+    });
   };
 }

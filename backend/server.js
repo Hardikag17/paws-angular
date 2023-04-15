@@ -17,7 +17,7 @@ const analyticsRoute = require("./routes/analyticsRoute");
 const Chat = require("./controllers/chat/chatController");
 
 const app = express();
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+app.use(cors({ credentials: true, origin: "http://localhost:4200" }));
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -47,7 +47,7 @@ const server = app.listen(PORT, function () {
 // Socket
 const io = require("socket.io")(server, {
   cors: {
-    origin: ["http://localhost:3000"],
+    origin: ["http://localhost:4200"],
   },
 });
 

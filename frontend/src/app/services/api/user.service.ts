@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { API_ROOT } from '../api-config';
-import { User, UserLogin, UserRegister } from '../interfaces/user';
+import { API_ROOT } from '../../api-config';
+import { User, UserLogin, UserRegister } from '../../interfaces/user';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
@@ -27,5 +27,23 @@ export class UserService {
       },
       { withCredentials: true }
     );
+  };
+
+  logout = () => {
+    return this.http.get(`${API_ROOT}/user/logout`, {
+      withCredentials: true,
+    });
+  };
+
+  getUserInfo = (UserID: string) => {
+    return this.http.post(`${API_ROOT}/user/userInfo`, {
+      UserID: UserID,
+    });
+  };
+
+  getUserState = () => {
+    return this.http.get(`${API_ROOT}/user/info`, {
+      withCredentials: true,
+    });
   };
 }

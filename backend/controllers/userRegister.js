@@ -30,12 +30,13 @@ const Register = async (req, res) => {
       .save()
       .then(() => {
         sendMail(req.body.email, req.body.name);
+        console.log("res:", res);
         res.status(200).send("successfully created your account");
       })
       .catch((err) => {
         res.status(400).send(err);
       });
-  }
+  } else res.status(200).send("User already exist");
 };
 
 const Login = async (req, res) => {

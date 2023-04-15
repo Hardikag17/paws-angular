@@ -10,6 +10,7 @@ import { UsersModule } from './users/users.module';
 import { SharedModule } from './shared/shared.module';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent, FooterComponent],
@@ -21,6 +22,7 @@ import { FooterComponent } from './shared/components/footer/footer.component';
     AuthModule,
     UsersModule,
     HttpClientModule,
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

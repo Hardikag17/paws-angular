@@ -1,18 +1,20 @@
 export interface User {
-  userId: String;
-  name: String;
-  email: String;
-  mobile?: Number;
+  userId: string;
+  name: string;
+  email: string;
+  user: boolean;
+  mobile?: string;
+  overlay?: boolean;
 }
 
 export interface UserRegister {
-  name: String;
-  email: String;
-  password?: String;
-  confirmPasswrd?: String;
+  name?: string;
+  email: string;
+  password: string;
+  confirmPasswrd?: string;
 }
 
 export interface UserLogin {
-  email: String;
-  password: String;
+  email: string;
+  password: string;
 }
