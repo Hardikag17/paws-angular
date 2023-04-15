@@ -51,7 +51,11 @@
         <span class="card__by">
           Posted by
           <a href="/" class="card__author px-2" title="author">
-            {{ Pet.RescuerID }}
+            {{
+              Pet.RescuerID.length > 7
+                ? (Pet.RescuerID | slice : 0 : 7) + "..."
+                : Pet.RescuerID
+            }}
           </a>
           <span class="comments px-2">
             <fa-icon [icon]="icons.faComments"></fa-icon>

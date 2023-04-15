@@ -25,13 +25,15 @@ export class UserService {
         email: user.email,
         password: user.password,
       },
+
       { withCredentials: true }
     );
   };
 
-  logout = () => {
+  logout = (): Observable<Object> => {
     return this.http.get(`${API_ROOT}/user/logout`, {
       withCredentials: true,
+      responseType: 'text',
     });
   };
 

@@ -61,6 +61,15 @@ export class LoginComponent {
     this.getUserService.login(data).subscribe({
       next: (res) => {
         console.log(res);
+        this.getStateService.setUserState();
+        this.router.navigate(['', 'adopt']).then(
+          (nav) => {
+            console.log('router navigation', nav);
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
       },
       error: (error) => {
         console.error('There was an error!', error);

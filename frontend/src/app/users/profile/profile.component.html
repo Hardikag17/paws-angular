@@ -1,3 +1,107 @@
-<p>profile works!</p>
-<router-outlet></router-outlet>
-<h1>Profile</h1>
+<div id="Profile">
+  <div class="profile-box container mt-3">
+    <div class="profile container">
+      <div
+        class="profile-img"
+        [ngStyle]="{ 'background-color': 'antiquewhite' }"
+      >
+        <img
+          src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg"
+          onError="this.src =
+                  'https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg'"
+          alt="placeholder profile pic"
+          width="230"
+          height="230"
+          class="rounded-circle"
+        />
+        <input
+          class="btn edit"
+          change="uploadFile($event)"
+          id="file-input"
+          name="files"
+          type="file"
+        />
+      </div>
+      <div class="details">
+        <div class="personal-details">
+          <div
+            class="d-flex flex-row justify-content-between align-items-center"
+          >
+            <div>
+              <h3>Personal</h3>
+            </div>
+            <div>
+              <a
+                [ngStyle]="{ 'font-size': '14px' }"
+                routerLink="/addpet"
+                class="btn btn-success btn-lg banner-btn"
+              >
+                Add Pet
+              </a>
+            </div>
+          </div>
+          <hr />
+          <div>
+            <div class="personal-details-content">
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="{{ userInfo?.name }}"
+                  value="{{ userInfo?.name }}"
+                  aria-label="Recipient's username"
+                  aria-describedby="basic-addon2"
+                  disabled
+                />
+                <span
+                  role="button"
+                  class="input-group-text cursor-pointer"
+                  id="basic-addon2"
+                >
+                  <fa-icon [icon]="icons.faPenToSquare"></fa-icon>
+                </span>
+              </div>
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="{{ userInfo?.email }}"
+                  value="{{ userInfo?.email }}"
+                  aria-label="Recipient's username"
+                  aria-describedby="basic-addon2"
+                  disabled
+                />
+              </div>
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="{userInfo?.mobile}"
+                  value="{{ userInfo?.mobile }}"
+                  aria-label="Recipient's username"
+                  aria-describedby="basic-addon2"
+                  disabled
+                />
+                <span
+                  role="button"
+                  class="input-group-text cursor-pointer"
+                  id="basic-addon2"
+                >
+                  <fa-icon [icon]="icons.faPenToSquare"></fa-icon>
+                </span>
+              </div>
+            </div>
+          </div>
+          <hr />
+        </div>
+      </div>
+    </div>
+    <div class="container py-5">
+      <h3>Recent Activity</h3>
+      <hr />
+      <div>Here is the previous post cards.</div>
+      <router-outlet></router-outlet>
+      <hr />
+    </div>
+  </div>
+</div>

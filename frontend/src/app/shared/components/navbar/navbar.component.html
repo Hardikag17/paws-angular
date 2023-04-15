@@ -36,7 +36,8 @@
         />
         <app-button text="Search"></app-button>
       </div>
-      <ul class="navbar-nav mr-auto mr-2 mr-lg-0">
+      <!-- User Not Logged In -->
+      <ul *ngIf="!user.user" class="navbar-nav mr-auto mr-2 mr-lg-0">
         <li class="nav-item">
           <a routerLink="/register" class="nav-link active" aria-current="page">
             Register
@@ -44,6 +45,43 @@
         </li>
         <li class="nav-item">
           <a routerLink="/login" class="nav-link active"> Login </a>
+        </li>
+      </ul>
+      <!-- User Logged In -->
+      <ul *ngIf="user.user" class="navbar-nav mr-auto mr-2 mr-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" routerLink="/chats"> Chat </a>
+        </li>
+        <li class="px-2 cursor-pointer dropdown">
+          <img
+            type="button"
+            data-bs-toggle="dropdown"
+            src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg"
+            width="40"
+            height="40"
+            class="rounded-circle dropdown-toggle"
+            alt="Placeholder profile pic"
+          />
+          <ul class="dropdown-menu dropdown-menu-end text-center">
+            <li>
+              <a class="dropdown-item" routerLink="{{ user.userId }}/requests">
+                Requests
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="{{ user.userId }}/addpet">
+                Add Pet
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="{{ user.userId }}/profile">
+                Profile
+              </a>
+            </li>
+            <li>
+              <button class="dropdown-item" (click)="Logout()">Logout</button>
+            </li>
+          </ul>
         </li>
       </ul>
     </div>

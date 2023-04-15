@@ -32,6 +32,7 @@ export class StorageService extends StateService<User> {
   setUserState = () => {
     this.apiService.getUserState().subscribe({
       next: (user: any) => {
+        console.log(user);
         let finalState: User;
         finalState = {
           userId: user[0].userId,
@@ -41,7 +42,7 @@ export class StorageService extends StateService<User> {
           overlay: false,
           mobile: user[0].mobile,
         };
-        // console.log('user state:', finalState);
+
         sessionStorage.setItem('state', JSON.stringify(finalState));
         this.setState(finalState);
       },
@@ -55,15 +56,17 @@ export class StorageService extends StateService<User> {
   clearUserState = () => {
     this.apiService.logout().subscribe({
       next: (res: any) => {
-        if (res.status === 200) {
-          console.log('user state cleared:');
-          sessionStorage.clear();
-          this.setState(initialState);
-        }
+        console.log('res', res);
+
+        console.log('user state cleared:');
+        sessionStorage.clear();
+        this.setState(initialState);
       },
       error: (error) => {
         console.error('There was an error!', error);
       },
     });
+
+    return initialState;
   };
 }
