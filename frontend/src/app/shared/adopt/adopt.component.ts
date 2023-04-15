@@ -21,7 +21,8 @@ export class AdoptComponent {
   ngOnInit() {
     this.PetsService.getPets(this.page).subscribe({
       next: (res) => {
-        this.Pets = res;
+        this.Pets = res.response;
+        console.log(this.Pets[0].PetID);
       },
       error: (error) => {
         console.error('There was an error!', error);

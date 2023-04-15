@@ -6,9 +6,10 @@ import { SharedRoutingModule } from './shared-routing.module';
 import { LandingComponent } from './landing/landing.component';
 import { ButtonComponent } from './components/button/button.component';
 import { AdoptComponent } from './adopt/adopt.component';
+import { CardComponent } from './components/card/card.component';
 
 @NgModule({
-  declarations: [LandingComponent, ButtonComponent, AdoptComponent],
+  declarations: [LandingComponent, ButtonComponent, AdoptComponent, CardComponent],
   imports: [CommonModule, SharedRoutingModule, FontAwesomeModule],
   exports: [ButtonComponent],
 })

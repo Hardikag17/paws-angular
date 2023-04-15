@@ -1,3 +1,4 @@
+// import { Social } from './social';
 export interface Pet {
   PetID: string;
   Type: {
@@ -27,6 +28,8 @@ export interface Pet {
   State: Number;
   City: string;
   RescuerID: string;
+  social: [string];
+  updatedAt: Date;
   Description: string;
   PhotoAmt: Number;
 }

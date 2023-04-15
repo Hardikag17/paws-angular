@@ -1,6 +1,6 @@
 <div id="Main" [ngStyle]="{ 'background-color': '#FFF', height: '100%' }">
   <div class="dashboard">
-    <div className="filterOptions sticky-top z-0 fixed ">
+    <div class="filterOptions sticky-top z-0 fixed">
       <div
         class="d-flex flex-sm-column flex-row flex-nowrap align-items-center w-100 sticky-top"
       >
@@ -56,7 +56,9 @@
       </div>
       <div class="d-flex flex-wrap justify-content-between"></div>
       <br />
-      <div className=" d-flex flex-wrap justify-content-between">cards</div>
+      <div class="d-flex flex-wrap justify-content-between">
+        <app-card *ngFor="let Pet of Pets" [Pet]="Pet"></app-card>
+      </div>
       <div class="d-flex flex-row justify-content-center align-items-center">
         <button class="btn btn-success btn-lg banner-btn mx-2 rounded-circle">
           <fa-icon [icon]="icons.faBackwardStep"></fa-icon>

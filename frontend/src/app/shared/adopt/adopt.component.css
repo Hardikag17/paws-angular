@@ -1,10 +1,3 @@
-.cards {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  padding: 2%;
-}
-
 .dashboard {
   display: flex;
   flex-direction: row;
@@ -52,5 +45,17 @@ a {
     border-radius: 10px;
     width: auto;
     margin: 0.7% !important;
+  }
+}
+
+.flex {
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 900px) {
+  .flex {
+    flex-direction: column;
   }
 }
