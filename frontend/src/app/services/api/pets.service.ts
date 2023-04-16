@@ -13,11 +13,8 @@ export class PetsService {
     return this.http.get(`${API_ROOT}/pets?page=${page}`);
   };
 
-  getPetByPetID = (PetID: string): Observable<Pet> => {
-    let response: any = this.http.get(`${API_ROOT}/pets/pet/${PetID}`);
-
-    response = response.data.response;
-    return response;
+  getPetByPetID = (PetID: string | null): Observable<any> => {
+    return this.http.get(`${API_ROOT}/pets/pet/${PetID}`);
   };
 
   adoptPet = (Pet: Pet, userId: string) => {
@@ -27,4 +24,10 @@ export class PetsService {
       RescuerID: Pet.RescuerID,
     });
   };
+
+  searchPets = (searchText: string): Observable<any> => {
+    return this.http.get(`${API_ROOT}/pets?searchText=${searchText}`);
+  };
+
+  sendPetRequest = () => {};
 }

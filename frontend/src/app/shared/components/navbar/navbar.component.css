@@ -6,6 +6,16 @@ nav button {
   color: black;
 }
 
+#Overlay {
+  background-color: #fefae0;
+  width: auto;
+  position: relative;
+  display: block;
+  z-index: 1000;
+  min-height: 100vh !important;
+  color: black;
+}
+
 @media screen and (max-width: 900px) {
   .navbar-nav {
     text-align: center;

@@ -29,7 +29,7 @@ export interface Pet {
   City: string;
   RescuerID: string;
   social: [string];
-  updatedAt: Date;
+  updatedAt: string;
   Description: string;
   PhotoAmt: Number;
 }

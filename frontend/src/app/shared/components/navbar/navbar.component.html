@@ -1,89 +1,134 @@
-<nav class="navbar navbar-expand-lg bg-light sticky-top z-5">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">
-      <img alt="logo" src="./assets//brand/logo.png" height="20" />
-      <b> Paws Adoption</b>
-    </a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" routerLink="/adopt"> Adopt </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="/analytics"> Analytics </a>
-        </li>
-      </ul>
-      <div class="d-flex mx-auto" role="search">
-        <input
-          class="form-control me-3"
-          [ngStyle]="{ 'max-width.px': 250 }"
-          type="search"
-          placeholder="Search"
-          aria-label="Search"
-          value="{searchText}"
-          onChange="{getPets}"
-        />
-        <app-button text="Search"></app-button>
-      </div>
-      <!-- User Not Logged In -->
-      <ul *ngIf="!user.user" class="navbar-nav mr-auto mr-2 mr-lg-0">
-        <li class="nav-item">
-          <a routerLink="/register" class="nav-link active" aria-current="page">
-            Register
-          </a>
-        </li>
-        <li class="nav-item">
-          <a routerLink="/login" class="nav-link active"> Login </a>
-        </li>
-      </ul>
-      <!-- User Logged In -->
-      <ul *ngIf="user.user" class="navbar-nav mr-auto mr-2 mr-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" routerLink="/chats"> Chat </a>
-        </li>
-        <li class="px-2 cursor-pointer dropdown">
-          <img
-            type="button"
-            data-bs-toggle="dropdown"
-            src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg"
-            width="40"
-            height="40"
-            class="rounded-circle dropdown-toggle"
-            alt="Placeholder profile pic"
+<div class="sticky-top">
+  <nav class="navbar navbar-expand-lg bg-light sticky-top z-5">
+    <div class="container-fluid z-100">
+      <a class="navbar-brand" href="/">
+        <img alt="logo" src="./assets//brand/logo.png" height="20" />
+        <b> Paws Adoption</b>
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" routerLink="/adopt"> Adopt </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/analytics"> Analytics </a>
+          </li>
+        </ul>
+        <div class="d-flex mx-auto" role="search">
+          <input
+            class="form-control me-3"
+            [ngStyle]="{ 'max-width.px': 250 }"
+            type="search"
+            name="searchText"
+            placeholder="Search"
+            aria-label="Search"
+            value="{{ searchText }}"
+            [(ngModel)]="searchText"
+            (ngModelChange)="getPets($event)"
           />
-          <ul class="dropdown-menu dropdown-menu-end text-center">
-            <li>
-              <a class="dropdown-item" routerLink="{{ user.userId }}/requests">
-                Requests
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="{{ user.userId }}/addpet">
-                Add Pet
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="{{ user.userId }}/profile">
-                Profile
-              </a>
-            </li>
-            <li>
-              <button class="dropdown-item" (click)="Logout()">Logout</button>
-            </li>
-          </ul>
-        </li>
-      </ul>
+          <app-button text="Search"></app-button>
+        </div>
+        <!-- User Not Logged In -->
+        <ul *ngIf="!user.user" class="navbar-nav mr-auto mr-2 mr-lg-0">
+          <li class="nav-item">
+            <a
+              routerLink="/register"
+              class="nav-link active"
+              aria-current="page"
+            >
+              Register
+            </a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/login" class="nav-link active"> Login </a>
+          </li>
+        </ul>
+        <!-- User Logged In -->
+        <ul *ngIf="user.user" class="navbar-nav mr-auto mr-2 mr-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" routerLink="/chats"> Chat </a>
+          </li>
+          <li class="px-2 cursor-pointer dropdown">
+            <img
+              type="button"
+              data-bs-toggle="dropdown"
+              src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg"
+              width="40"
+              height="40"
+              class="rounded-circle dropdown-toggle"
+              alt="Placeholder profile pic"
+            />
+            <ul class="dropdown-menu dropdown-menu-end text-center">
+              <li>
+                <a
+                  class="dropdown-item"
+                  routerLink="{{ user.userId }}/requests"
+                >
+                  Requests
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" routerLink="{{ user.userId }}/addpet">
+                  Add Pet
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" routerLink="{{ user.userId }}/profile">
+                  Profile
+                </a>
+              </li>
+              <li>
+                <button class="dropdown-item" (click)="Logout()">Logout</button>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div
+    *ngIf="user.overlay"
+    id="Overlay"
+    class="w-100 h-100 absolute overlay px-5 py-2 container-fluid"
+  >
+    <b>
+      <h5 [ngStyle]="{ color: 'grey', 'font-style': 'italic' }">
+        Serach results for: {{ searchText }}
+      </h5>
+    </b>
+    <div class="d-flex flex-wrap justify-content-center">
+      <app-card *ngFor="let Pet of searchResults" [Pet]="Pet"></app-card>
+
+      <!-- {Pets?.response?.map((element, key) => {
+          return (
+            <Link
+              onClick={() => setSearchText("")}
+              to={`/petview/${element.PetID}`}
+            >
+              <div key={key}>
+                <Card
+                  name={element.Name}
+                  description={element.description}
+                  rescuerId={element.RescuerID}
+                  PetID={element.PetID}
+                  comments=" 5"
+                  postedOn="4/3/2023"
+                />
+              </div>
+            </Link>
+          );
+        })} -->
     </div>
   </div>
-</nav>
+</div>

@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { User } from 'src/app/interfaces/user';
+import { PetsService } from 'src/app/services/api/pets.service';
 import { UserService } from 'src/app/services/api/user.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { Pet } from 'src/app/interfaces/pet';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -9,9 +11,12 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class NavbarComponent {
   user!: User;
+  searchText: string = '';
+  searchResults!: Pet[];
   constructor(
     private getStorageService: StorageService,
-    private userService: UserService
+    private userService: UserService,
+    private petsServcie: PetsService
   ) {
     this.getStorageService.getUserState().subscribe({
       next: (res) => {
@@ -22,6 +27,28 @@ export class NavbarComponent {
       },
     });
   }
+
+  ngOnInit() {}
+
+  getPets = (searchText: string) => {
+    this.searchText = searchText;
+    if (searchText.length > 0) this.user.overlay = true;
+    else this.user.overlay = false;
+    this.petsServcie.searchPets(searchText).subscribe({
+      next: (data) => {
+        let res = data.response;
+        if (res.length > 0) {
+          this.searchResults = [];
+          this.searchResults = res;
+        }
+      },
+      error: (error) => {
+        console.error('There was an error!', error);
+      },
+    });
+
+    console.warn(this.searchResults);
+  };
 
   Logout = () => {
     this.userService.logout();
