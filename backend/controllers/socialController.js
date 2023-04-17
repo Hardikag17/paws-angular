@@ -37,7 +37,21 @@ const getSocial = async (req, res) => {
     var socialList = await Social.find({ petId: petId }).populate({
       path: "author",
     });
-    res.status(200).send(socialList);
+    let socials = [];
+    socialList.forEach((el) => {
+      socials.push({
+        _id: el._id,
+        likes: el.likes[0],
+        petId: el.petId,
+        comment: el.comments,
+        author: {
+          userId: el.author.userId,
+          name: el.author.name,
+          email: el.author.email,
+        },
+      });
+    });
+    res.status(200).send({ response: socials });
   } catch (err) {
     console.log(err);
   }

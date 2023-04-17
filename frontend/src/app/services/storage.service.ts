@@ -32,7 +32,6 @@ export class StorageService extends StateService<User> {
   setUserState = () => {
     this.apiService.getUserState().subscribe({
       next: (user: any) => {
-        console.log(user);
         let finalState: User;
         finalState = {
           userId: user[0].userId,

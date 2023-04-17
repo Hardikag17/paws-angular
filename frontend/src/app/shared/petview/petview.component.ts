@@ -12,6 +12,9 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { PetsService } from 'src/app/services/api/pets.service';
 import { User } from 'src/app/interfaces/user';
+import { SocialService } from 'src/app/services/api/social.service';
+import { SocialList } from 'src/app/interfaces/social';
+import { StorageService } from 'src/app/services/storage.service';
 @Component({
   selector: 'app-petview',
   templateUrl: './petview.component.html',
@@ -28,7 +31,6 @@ export class PetviewComponent {
     faComments,
   };
   user!: User;
-  socials: any = [];
   PetID: string | null;
   likeColor: string = 'red';
   element!: Pet;
@@ -36,10 +38,13 @@ export class PetviewComponent {
   imgS = '';
   fakeArray!: Array<Number>;
   comment: string = '';
+  socials: SocialList[] = [];
 
   constructor(
     private route: ActivatedRoute,
-    private getPetService: PetsService
+    private storageService: StorageService,
+    private getPetService: PetsService,
+    private getSocialService: SocialService
   ) {
     this.PetID = '';
   }
@@ -48,10 +53,22 @@ export class PetviewComponent {
     this.PetID = this.route.snapshot.paramMap.get('PetID');
     this.imgS = `https://paws-adoption.s3.ap-south-1.amazonaws.com/pets/${this.PetID}-1.jpg`;
 
+    this.storageService.getUserState().subscribe((res) => (this.user = res));
+
     this.getPetService.getPetByPetID(this.PetID).subscribe({
       next: (data) => {
         this.element = data.response;
+
         this.fakeArray = new Array(this.element.PhotoAmt);
+      },
+      error: (error) => {
+        console.error('There was an error!', error);
+      },
+    });
+
+    this.getSocialService.getSocialList(this.PetID).subscribe({
+      next: (data) => {
+        this.socials = data;
       },
       error: (error) => {
         console.error('There was an error!', error);
@@ -62,6 +79,7 @@ export class PetviewComponent {
   sendPetRequest = () => {};
   petLike = () => {};
   addComment = () => {};
+  deleteSocial = (docId: string) => {};
 
   handleOnClick = (event: any) => {
     this.imgS = event.target.src;
