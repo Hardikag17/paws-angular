@@ -29,6 +29,7 @@
   .Landing {
     background-position: center;
     animation: animate 16s ease-in-out infinite;
+    height: 150vh;
   }
 
   .flex {
@@ -38,6 +39,7 @@
   .banner-div {
     max-width: 90%;
     position: absolute;
+    padding-top: 50px;
   }
 
   .content-cards {
@@ -47,15 +49,15 @@
   }
 
   h1 {
-    font-size: 48px;
+    font-size: 20px;
   }
 
   h2 {
-    font-size: 36px;
+    font-size: 16px;
   }
 
   h3 {
-    font-size: 24px;
+    font-size: 12px;
   }
 
   @keyframes animate {

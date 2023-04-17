@@ -76,7 +76,16 @@ export class PetviewComponent {
     });
   }
 
-  sendPetRequest = () => {};
+  sendPetRequest = () => {
+    this.getPetService.sendPetRequest(this.PetID, this.user.userId).subscribe({
+      next: (data) => {
+        console.log(data);
+      },
+      error: (error) => {
+        console.error('There was an error!', error);
+      },
+    });
+  };
   petLike = () => {};
   addComment = () => {};
   deleteSocial = (docId: string) => {};
