@@ -1,3 +1,386 @@
-<div>
-  <h1>This is add pet form</h1>
+<div class="container-fluid p-2 add-pet-container">
+  <form
+    [formGroup]="addPet"
+    (ngSubmit)="handleFormSubmit()"
+    class="details"
+    novalidate
+    class="add-pet"
+  >
+    <div class="d-flex flex-row-reverse me-2" [ngStyle]="{ color: 'green' }">
+      <h1>
+        <b>
+          <img width="60" height="60" src="../../../assets/icons/cute.png" />
+          Help a buddy
+        </b>
+      </h1>
+    </div>
+    <h6>* Give details to best of your knowledge</h6>
+    <div>
+      <b>
+        <h3>Pet Details</h3>
+      </b>
+      <hr />
+      <div>
+        <!-- Text Details  -->
+        <div class="text-details">
+          <div class="form-outline input-group mb-3">
+            <input
+              type="text"
+              name="Name"
+              class="form-control"
+              placeholder="* Pet's Name"
+              formControlName="Name"
+            />
+          </div>
+          <div
+            *ngIf="!Name?.valid && (Name?.dirty || Name?.touched)"
+            class="alert alert-danger py-0"
+            role="alert"
+          >
+            Name is mandatory
+          </div>
+
+          <div class="input-group mb-3 cursor-pointer dropdown">
+            <!-- <mat-form-field appearance="fill">
+              <mat-label>Cars</mat-label>
+              <select matNativeControl required>
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+              </select>
+            </mat-form-field> -->
+            <!-- <Select
+                  options={typeOptions}
+                  defaultValue={type}
+                  placeholder="Select Type"
+                  onChange={settype}
+                  isSearchable={true}
+                  isClearable
+                  noOptionsMessage={() => "Sorry no such type found"}
+                  styles={{
+                    control: (baseStyles, state, defaultStyles) => ({
+                      ...defaultStyles,
+                      ...baseStyles,
+                      width: 180,
+                      borderColor: state.isFocused ? "green" : "green",
+                    }),
+                  }}
+                /> -->
+            &nbsp; &nbsp;
+            <!-- <Select
+                  options={breedOptions}
+                  defaultValue={breed}
+                  placeholder="Select Breed"
+                  onChange={setbreed}
+                  isSearchable={true}
+                  isClearable
+                  noOptionsMessage={() => "Sorry no such breed found"}
+                  styles={{
+                    control: (baseStyles, state, defaultStyles) => ({
+                      ...defaultStyles,
+                      ...baseStyles,
+                      width: 180,
+                      borderColor: state.isFocused ? "green" : "green",
+                    }),
+                  }}
+                /> -->
+            &nbsp; &nbsp;
+            <!-- <Select
+                  options={genderOptions}
+                  defaultValue={gender}
+                  placeholder="Select Gender"
+                  onChange={setgender}
+                  isSearchable={true}
+                  isClearable
+                  noOptionsMessage={() => "Sorry no such gender found"}
+                  styles={{
+                    control: (baseStyles, state, defaultStyles) => ({
+                      ...defaultStyles,
+                      ...baseStyles,
+                      width: 180,
+                      borderColor: state.isFocused ? "green" : "green",
+                    }),
+                  }}
+                /> -->
+            &nbsp; &nbsp;
+            <!-- <Select
+                  options={ageOptions}
+                  defaultValue={age}
+                  placeholder="Select Age"
+                  onChange={setage}
+                  isSearchable={true}
+                  isClearable
+                  styles={{
+                    control: (baseStyles, state, defaultStyles) => ({
+                      ...defaultStyles,
+                      ...baseStyles,
+                      width: 180,
+                      borderColor: state.isFocused ? "green" : "green",
+                    }),
+                  }}
+                /> -->
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text">Description:</span>
+            <textarea
+              rows="3"
+              name="Description"
+              class="form-control"
+              aria-label="Description:"
+              formControlName="Description"
+            ></textarea>
+          </div>
+          <div
+            *ngIf="
+              !Description?.valid &&
+              (Description?.dirty || Description?.touched)
+            "
+            class="alert alert-danger py-0"
+            role="alert"
+          >
+            Description is mandatory
+          </div>
+
+          <div class="pt-2">
+            <b>
+              <h3>
+                Health, Please tell if buddy is injured or need urgent care
+              </h3>
+            </b>
+            <hr />
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                name="Health"
+                class="form-control"
+                placeholder="Status"
+                aria-label="Health status"
+                aria-describedby="basic-addon2"
+                disabled
+                value="Health: {{ Pet.Health }}"
+              />
+              <span
+                role="button"
+                class="input-group-text cursor-pointer lg:px-3"
+                id="basic-addon2"
+                (click)="addHealth(1)"
+              >
+                Healthy
+              </span>
+              <span
+                role="button"
+                class="input-group-text cursor-pointer lg:px-3"
+                id="basic-addon2"
+                (click)="addHealth(2)"
+              >
+                Minor Injury
+              </span>
+              <span
+                role="button"
+                class="input-group-text cursor-pointer lg:px-3"
+                id="basic-addon2"
+                (click)="addHealth(3)"
+              >
+                Serious Injury
+              </span>
+              <span
+                role="button"
+                class="input-group-text cursor-pointer lg:px-3"
+                id="basic-addon2"
+                (click)="addHealth(0)"
+              >
+                Not Specified
+              </span>
+            </div>
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                name="Vaccinated"
+                class="form-control"
+                placeholder="Vaccinated"
+                aria-label="Vaccinated status"
+                aria-describedby="basic-addon2"
+                value="Vaccinated: {{ Pet.Vaccinated }}"
+                disabled
+              />
+              <span
+                role="button"
+                class="input-group-text cursor-pointer px-5"
+                id="basic-addon2"
+                (click)="addVaccinated(1)"
+              >
+                Yes
+              </span>
+              <span
+                role="button"
+                class="input-group-text cursor-pointer px-5"
+                id="basic-addon2"
+                (click)="addVaccinated(2)"
+              >
+                No
+              </span>
+              <span
+                role="button"
+                class="input-group-text cursor-pointer px-5"
+                id="basic-addon2"
+                (click)="addVaccinated(3)"
+              >
+                No Idea
+              </span>
+            </div>
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                class="form-control"
+                name="Sterilized"
+                placeholder="Sterilized"
+                aria-label="Sterilized status"
+                aria-describedby="basic-addon2"
+                disabled
+                value="Sterilized: {{ Pet.Sterilized }}"
+              />
+              <span
+                role="button"
+                class="input-group-text cursor-pointer px-5"
+                id="basic-addon2"
+                (click)="addSterilized(1)"
+              >
+                Yes
+              </span>
+              <span
+                role="button"
+                class="input-group-text cursor-pointer px-5"
+                id="basic-addon2"
+                (click)="addSterilized(2)"
+              >
+                No
+              </span>
+              <span
+                role="button"
+                class="input-group-text cursor-pointer px-5"
+                id="basic-addon2"
+                (click)="addSterilized(3)"
+              >
+                Not Idea
+              </span>
+            </div>
+          </div>
+          <div>
+            <b>
+              <h3>
+                Where? (Please be as specific as possible incase of strays)
+              </h3>
+            </b>
+            <hr />
+            <div class="input-group mb-3">
+              <span class="input-group-text">* Address:</span>
+              <textarea
+                rows="3"
+                name="Address"
+                class="form-control"
+                aria-label="Address:"
+                formControlName="Address"
+              ></textarea>
+              <!-- <span
+                role="button"
+                class="input-group-text cursor-pointer"
+                id="basic-addon2"
+                onClick="{getLocation}"
+              >
+                Click me &nbsp; <fa-icon [icon]="icons.faLocationDot"></fa-icon>
+              </span> -->
+            </div>
+            <div
+              *ngIf="!Address?.valid && (Address?.dirty || Address?.touched)"
+              class="alert alert-danger py-0"
+              role="alert"
+            >
+              Address is mandatory
+            </div>
+            <div>
+              <h6>* City, State, Pincode - (auto fill using geolocation)</h6>
+              <div class="input-group mb-3">
+                <span class="input-group-text">City:</span>
+                <input
+                  name="City"
+                  class="form-control"
+                  type="text"
+                  aria-label="City"
+                  formControlName="City"
+                />
+                &nbsp; &nbsp;
+                <span class="input-group-text">State:</span>
+                <input
+                  type="number"
+                  name="State"
+                  class="form-control"
+                  aria-label="State"
+                  formControlName="State"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Images  -->
+        <!-- <div class="imgs">
+          <div class="image-upload container text-center">
+            <label for="file-input" class="img-div">
+              <div class="row border border-dark">
+                <div class="col">
+                  <img
+                    src="{{ preview[0] }}"
+                    height="{260}"
+                    class="w-100 shadow-1-strong p-2 pe-0 img-1"
+                    alt="Pet's pics (max-4)"
+                  />
+                  <img
+                    src="{{ preview[1] }}"
+                    class="w-100 shadow-1-strong p-2 pb-0 img-2"
+                    alt="Pet's pics (max-4)"
+                  />
+                </div>
+                <div class="col">
+                  <img
+                    src="{{ preview[2] }}"
+                    class="w-100 shadow-1-strong p-2 img-3"
+                    alt="Pet's pics (max-4)"
+                  />
+                  <img
+                    src="{{ preview[3] }}"
+                    height="{260}"
+                    class="w-100 shadow-1-strong p-2 pt-0 ps-0 img-4"
+                    alt="Pet's pics (max-4)"
+                  />
+                </div>
+              </div>
+            </label>
+            <input id="file-input" multiple name="files" type="file" />
+          </div>
+        </div> -->
+      </div>
+    </div>
+    <!-- Submit -->
+    <div
+      class="d-flex flex-row justify-content-between align-items-center pt-5"
+    >
+      <div class="form-check d-flex justify-content-center mb-5">
+        <input type="checkbox" name="terms" class="form-check-input me-2" />
+        <label class="form-check-label" for="form2Example3g">
+          I agree all statements in
+          <a href="#!" class="text-body">
+            <u>Terms of service</u>
+          </a>
+        </label>
+      </div>
+
+      <button
+        [ngStyle]="{ fontSize: '14px' }"
+        type="submit"
+        class="btn btn-success btn-lg banner-btn"
+      >
+        Voila, Submit
+      </button>
+    </div>
+  </form>
 </div>

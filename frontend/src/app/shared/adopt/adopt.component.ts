@@ -14,7 +14,7 @@ import { Pet } from 'src/app/interfaces/pet';
 export class AdoptComponent {
   icons = { faForwardStep, faBackwardStep };
   Pets: Pet[] = [];
-  page: Number = 1;
+  page: number = 1;
 
   constructor(private PetsService: PetsService) {}
 
@@ -29,4 +29,14 @@ export class AdoptComponent {
       },
     });
   }
+
+  moveForword = () => {
+    this.page++;
+    console.log(this.page);
+  };
+
+  moveBackword = () => {
+    if (this.page - 1 > 0) this.page--;
+    console.log(this.page);
+  };
 }
