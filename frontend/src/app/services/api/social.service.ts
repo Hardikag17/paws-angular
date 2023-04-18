@@ -9,14 +9,21 @@ import { Observable, map, tap, concatMap, of } from 'rxjs';
 export class SocialService {
   constructor(private http: HttpClient) {}
 
-  getlikes = (PetID: string | null, userId: string): Observable<Number> => {
-    console.log('data', PetID, userId);
-    return this.http.get(`${API_ROOT}/social/${PetID}/${userId}/like`).pipe(
-      map((response: any) => {
-        console.log(response);
-        return response.data.count;
+  getlikes = (
+    PetID: string | null
+  ): Observable<{ count: number; status: boolean }> => {
+    let userId: any = sessionStorage.getItem('state');
+    userId = JSON.parse(userId).userId;
+
+    return this.http
+      .get(`${API_ROOT}/social/${PetID}/${userId}/like`, {
+        responseType: 'text',
       })
-    );
+      .pipe(
+        map((response: any) => {
+          return JSON.parse(response);
+        })
+      );
   };
 
   addComment = (SocialData: Social): Observable<any> => {

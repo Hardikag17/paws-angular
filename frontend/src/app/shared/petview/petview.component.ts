@@ -36,7 +36,7 @@ export class PetviewComponent {
   likeColor!: string;
   totalLikes: number = 0;
   element!: Pet;
-  likes: { count: number; status: boolean } = { count: 0, status: false };
+  likes!: { count: number; status: boolean };
   imgS = '';
   fakeArray!: Array<number>;
   comment: string = '';
@@ -81,13 +81,12 @@ export class PetviewComponent {
       },
     });
 
-    // this.storageService
-    //   .getUserState()
-    //   .subscribe((res) =>
-    //     this.getSocialService
-    //       .getlikes(this.PetID, res.userId)
-    //       .subscribe((data) => console.log(data))
-    //   );
+    this.getSocialService.getlikes(this.PetID).subscribe((res) => {
+      this.likes = res;
+      if (this.likes.status === true) {
+        this.likeColor = 'red';
+      } else this.likeColor = '';
+    });
   }
 
   sendPetRequest = () => {

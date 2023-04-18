@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { Pet } from 'src/app/interfaces/pet';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { OptionsService } from 'src/app/services/api/options.service';
 
 @Component({
   selector: 'app-addpet',
@@ -45,6 +46,13 @@ export class AddpetComponent {
     State: new FormControl('', [Validators.required]),
   });
 
+  constructor(private optionsService: OptionsService) {}
+
+  ngOnInit() {
+    this.optionsService.getBreedOptions().subscribe((res) => console.log(res));
+    this.optionsService.getStateOptions().subscribe((res) => console.log(res));
+  }
+
   get Name() {
     return this.addPet.get('Name');
   }
@@ -68,7 +76,6 @@ export class AddpetComponent {
   };
 
   handleFormSubmit = () => {
-   
     this.Pet = {
       ...this.Pet,
       Name: this.addPet.get('Name').value,

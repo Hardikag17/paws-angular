@@ -53,6 +53,7 @@
                     <span class="sp_heart" role="button">
                       <fa-icon
                         [icon]="icons.faHeart"
+                        *ngIf="!likes.status"
                         class="heart-hover"
                         (click)="petLike()"
                         [ngStyle]="{ color: likeColor }"
