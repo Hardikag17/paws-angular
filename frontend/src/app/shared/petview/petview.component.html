@@ -1,6 +1,13 @@
 <div class="pet-view">
   <section class="section-content padding-y bg">
     <div class="container-fluid">
+      <div
+        *ngIf="alert.bool"
+        class="alert alert-primary text-center py-2"
+        role="alert"
+      >
+        {{ alert.message }}
+      </div>
       <article class="pet">
         <div class="pet-body">
           <div class="row">
@@ -50,7 +57,7 @@
                         (click)="petLike()"
                         [ngStyle]="{ color: likeColor }"
                       ></fa-icon>
-                      {{ likes }} Likes
+                      {{ likes.count }} Likes
                     </span>
                   </div>
                 </div>
@@ -207,7 +214,10 @@
                     class="form-control ml-1"
                     placeholder="Add a Comment"
                     value="{{ comment }}"
-                    onChange="handleOnChange()"
+                    required
+                    minlength="1"
+                    value="{{ comment }}"
+                    [(ngModel)]="comment"
                   ></textarea>
                 </div>
 
@@ -228,7 +238,7 @@
                   <button
                     class="btn btn-primary btn-sm ml-1"
                     type="button"
-                    onClick="{clear}"
+                    (click)="clearCommentText()"
                   >
                     <fa-icon [icon]="icons.faCommentSlash"></fa-icon>
 

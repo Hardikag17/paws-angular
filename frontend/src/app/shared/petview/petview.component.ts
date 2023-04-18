@@ -13,8 +13,9 @@ import {
 import { PetsService } from 'src/app/services/api/pets.service';
 import { User } from 'src/app/interfaces/user';
 import { SocialService } from 'src/app/services/api/social.service';
-import { SocialList } from 'src/app/interfaces/social';
+import { SocialList, Social } from 'src/app/interfaces/social';
 import { StorageService } from 'src/app/services/storage.service';
+import { from, map } from 'rxjs';
 @Component({
   selector: 'app-petview',
   templateUrl: './petview.component.html',
@@ -32,13 +33,18 @@ export class PetviewComponent {
   };
   user!: User;
   PetID: string | null;
-  likeColor: string = 'red';
+  likeColor!: string;
+  totalLikes: number = 0;
   element!: Pet;
-  likes = 0;
+  likes: { count: number; status: boolean } = { count: 0, status: false };
   imgS = '';
-  fakeArray!: Array<Number>;
+  fakeArray!: Array<number>;
   comment: string = '';
   socials: SocialList[] = [];
+  alert: { message: string; bool: Boolean } = {
+    message: '',
+    bool: false,
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -74,21 +80,61 @@ export class PetviewComponent {
         console.error('There was an error!', error);
       },
     });
+
+    // this.storageService
+    //   .getUserState()
+    //   .subscribe((res) =>
+    //     this.getSocialService
+    //       .getlikes(this.PetID, res.userId)
+    //       .subscribe((data) => console.log(data))
+    //   );
   }
 
   sendPetRequest = () => {
     this.getPetService.sendPetRequest(this.PetID, this.user.userId).subscribe({
       next: (data) => {
-        console.log(data);
+        this.alert = {
+          message: data,
+          bool: true,
+        };
       },
       error: (error) => {
         console.error('There was an error!', error);
       },
     });
   };
-  petLike = () => {};
-  addComment = () => {};
-  deleteSocial = (docId: string) => {};
+  petLike = () => {
+    if (this.likeColor == null) {
+      this.likeColor = 'red';
+      this.likes.count = this.likes.count + 1;
+    } else {
+      this.likeColor = '';
+      this.likes.count = this.likes.count + 1;
+    }
+  };
+  addComment = () => {
+    const SocialData: Social = {
+      comment: this.comment,
+      likes: this.likeColor == 'red' ? this.user.userId : null,
+      author: this.user.userId,
+      PetID: this.element.PetID,
+    };
+
+    this.getSocialService.addComment(SocialData).subscribe((res) => {
+      this.socials = res;
+    });
+  };
+
+  clearCommentText = () => {
+    this.comment = '';
+  };
+  deleteSocial = (SocialId: string) => {
+    this.getSocialService
+      .deleteSocial(this.PetID, SocialId)
+      .subscribe((res) => {
+        this.socials = res;
+      });
+  };
 
   handleOnClick = (event: any) => {
     this.imgS = event.target.src;

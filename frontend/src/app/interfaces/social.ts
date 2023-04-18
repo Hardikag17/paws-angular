@@ -1,6 +1,6 @@
 export interface Social {
   comment: string;
-  likes: string;
+  likes: string | null;
   author: string;
   PetID: string;
 }

@@ -2,15 +2,21 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { API_ROOT } from 'src/app/api-config';
 import { Social, SocialList } from 'src/app/interfaces/social';
-import { Observable, map, tap } from 'rxjs';
+import { Observable, map, tap, concatMap, of } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
 export class SocialService {
   constructor(private http: HttpClient) {}
 
-  getlikes = (PetID: string, userId: string) => {
-    return this.http.get(`${API_ROOT}/social/${PetID}/${userId}/like`);
+  getlikes = (PetID: string | null, userId: string): Observable<Number> => {
+    console.log('data', PetID, userId);
+    return this.http.get(`${API_ROOT}/social/${PetID}/${userId}/like`).pipe(
+      map((response: any) => {
+        console.log(response);
+        return response.data.count;
+      })
+    );
   };
 
   addComment = (SocialData: Social): Observable<any> => {
@@ -19,9 +25,13 @@ export class SocialService {
         SocialData,
       })
       .pipe(
-        map((response) => {
-          console.log(response);
-        })
+        concatMap((response: any) =>
+          this.getSocialList(response.PetID).pipe(
+            map((updatedSocialList) => {
+              return updatedSocialList;
+            })
+          )
+        )
       );
   };
 
@@ -33,13 +43,22 @@ export class SocialService {
     );
   };
 
-  deleteSocial = (PetID: string, SocialId: string) => {
+  deleteSocial = (
+    PetID: string | null,
+    SocialId: string
+  ): Observable<SocialList[]> => {
     return this.http
-      .get(`${API_ROOT}/social/${PetID}/${SocialId}/deletesocial`)
+      .get(`${API_ROOT}/social/${PetID}/${SocialId}/deletesocial`, {
+        responseType: 'text',
+      })
       .pipe(
-        tap((res) => {
-          this.getSocialList(PetID);
-        })
+        concatMap(() =>
+          this.getSocialList(PetID).pipe(
+            map((updatedSocialList) => {
+              return updatedSocialList;
+            })
+          )
+        )
       );
   };
 }
