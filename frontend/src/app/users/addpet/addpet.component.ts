@@ -3,6 +3,7 @@ import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { Pet } from 'src/app/interfaces/pet';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { OptionsService } from 'src/app/services/api/options.service';
+import { PetsService } from 'src/app/services/api/pets.service';
 
 @Component({
   selector: 'app-addpet',
@@ -49,7 +50,10 @@ export class AddpetComponent {
     State: new FormControl('', [Validators.required]),
   });
 
-  constructor(private optionsService: OptionsService) {}
+  constructor(
+    private optionsService: OptionsService,
+    private getPetService: PetsService
+  ) {}
 
   ngOnInit() {
     this.optionsService
@@ -116,5 +120,16 @@ export class AddpetComponent {
     };
 
     console.log('Pet', this.Pet);
+  };
+
+  uploadImages = (event: any) => {
+    let selectedFiles = event.target.files;
+    if (selectedFiles.length !== 4) alert('You must upload 4 images');
+    else {
+      // Upload Image to s3
+      this.getPetService
+        .uploadImages(selectedFiles)
+        .subscribe((res) => console.log(res));
+    }
   };
 }

@@ -9,8 +9,14 @@ import { Observable, map } from 'rxjs';
 export class PetsService {
   constructor(private http: HttpClient) {}
 
-  addPet = (Pet: Pet) => {
-    
+  addPet = (Pet: Pet) => {};
+
+  uploadImages = (selectedFiles: any): Observable<any> => {
+    return this.http.post(`${API_ROOT}/pets/upload`, selectedFiles).pipe(
+      map((res: any) => {
+        console.log('uplaodedFiles', res);
+      })
+    );
   };
 
   getPets = (page: Number): Observable<any> => {
