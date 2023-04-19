@@ -9,6 +9,10 @@ import { Observable, map } from 'rxjs';
 export class PetsService {
   constructor(private http: HttpClient) {}
 
+  addPet = (Pet: Pet) => {
+    
+  };
+
   getPets = (page: Number): Observable<any> => {
     return this.http.get(`${API_ROOT}/pets?page=${page}`);
   };

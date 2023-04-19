@@ -41,85 +41,65 @@
           </div>
 
           <div class="input-group mb-3 cursor-pointer dropdown">
-            <!-- <mat-form-field appearance="fill">
-              <mat-label>Cars</mat-label>
-              <select matNativeControl required>
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
-              </select>
-            </mat-form-field> -->
-            <!-- <Select
-                  options={typeOptions}
-                  defaultValue={type}
-                  placeholder="Select Type"
-                  onChange={settype}
-                  isSearchable={true}
-                  isClearable
-                  noOptionsMessage={() => "Sorry no such type found"}
-                  styles={{
-                    control: (baseStyles, state, defaultStyles) => ({
-                      ...defaultStyles,
-                      ...baseStyles,
-                      width: 180,
-                      borderColor: state.isFocused ? "green" : "green",
-                    }),
-                  }}
-                /> -->
+            <mat-form-field appearance="fill">
+              <mat-select required (selectionChange)="selectType($event.value)">
+                <!-- <mat-option>-- None --</mat-option> -->
+                <mat-option [value]="1">Dog</mat-option>
+                <mat-option [value]="2">Cat</mat-option>
+                <mat-option [value]="3">Other</mat-option>
+              </mat-select>
+              <mat-label
+                ><mat-icon>pets</mat-icon> <b> Type</b>
+                <i> eg:Dog</i></mat-label
+              >
+            </mat-form-field>
             &nbsp; &nbsp;
-            <!-- <Select
-                  options={breedOptions}
-                  defaultValue={breed}
-                  placeholder="Select Breed"
-                  onChange={setbreed}
-                  isSearchable={true}
-                  isClearable
-                  noOptionsMessage={() => "Sorry no such breed found"}
-                  styles={{
-                    control: (baseStyles, state, defaultStyles) => ({
-                      ...defaultStyles,
-                      ...baseStyles,
-                      width: 180,
-                      borderColor: state.isFocused ? "green" : "green",
-                    }),
-                  }}
-                /> -->
+            <mat-form-field appearance="fill">
+              <mat-select
+                required
+                (selectionChange)="selectBreed($event.value)"
+              >
+                <!-- <mat-option>-- None --</mat-option> -->
+                <mat-option
+                  *ngFor="let Breed of BreedOptions"
+                  [value]="Breed.value"
+                  >{{ Breed.label }}</mat-option
+                >
+              </mat-select>
+              <mat-label
+                ><mat-icon>pets</mat-icon> <b> Breed</b>
+                <i> select</i></mat-label
+              >
+            </mat-form-field>
             &nbsp; &nbsp;
-            <!-- <Select
-                  options={genderOptions}
-                  defaultValue={gender}
-                  placeholder="Select Gender"
-                  onChange={setgender}
-                  isSearchable={true}
-                  isClearable
-                  noOptionsMessage={() => "Sorry no such gender found"}
-                  styles={{
-                    control: (baseStyles, state, defaultStyles) => ({
-                      ...defaultStyles,
-                      ...baseStyles,
-                      width: 180,
-                      borderColor: state.isFocused ? "green" : "green",
-                    }),
-                  }}
-                /> -->
+            <mat-form-field appearance="fill">
+              <mat-select
+                required
+                (selectionChange)="selectGender($event.value)"
+              >
+                <!-- <mat-option>-- None --</mat-option> -->
+                <mat-option [value]="1">Male</mat-option>
+                <mat-option [value]="2">Female</mat-option>
+                <mat-option [value]="3">Not Specified</mat-option>
+              </mat-select>
+              <mat-label
+                ><mat-icon>pets</mat-icon> <b> Gender</b>
+                <i> select</i></mat-label
+              >
+            </mat-form-field>
             &nbsp; &nbsp;
-            <!-- <Select
-                  options={ageOptions}
-                  defaultValue={age}
-                  placeholder="Select Age"
-                  onChange={setage}
-                  isSearchable={true}
-                  isClearable
-                  styles={{
-                    control: (baseStyles, state, defaultStyles) => ({
-                      ...defaultStyles,
-                      ...baseStyles,
-                      width: 180,
-                      borderColor: state.isFocused ? "green" : "green",
-                    }),
-                  }}
-                /> -->
+            <mat-form-field appearance="fill">
+              <mat-select required (selectionChange)="selectAge($event.value)">
+                <mat-option
+                  *ngFor="let age of ageOptions; let index = index"
+                  [value]="index + 1"
+                  >{{ index + 1 }}</mat-option
+                >
+              </mat-select>
+              <mat-label
+                ><mat-icon>pets</mat-icon> <b> Age</b> <i> select</i></mat-label
+              >
+            </mat-form-field>
           </div>
           <div class="input-group mb-3">
             <span class="input-group-text">Description:</span>

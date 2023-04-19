@@ -11,6 +11,10 @@ import { OptionsService } from 'src/app/services/api/options.service';
 })
 export class AddpetComponent {
   icons = { faLocationDot };
+  BreedOptions!: [{ label: string; value: number }];
+  stateOptions!: [{ label: string; value: number }];
+  ageOptions = new Array(100);
+
   preview = ['', '', '', ''];
   Pet: Pet = {
     PetID: '',
@@ -19,7 +23,6 @@ export class AddpetComponent {
     Age: 0,
     Breed1: 0,
     Gender: 3,
-    Color1: 0,
     Vaccinated: 0,
     Sterilized: 0,
     Health: 0,
@@ -49,8 +52,12 @@ export class AddpetComponent {
   constructor(private optionsService: OptionsService) {}
 
   ngOnInit() {
-    this.optionsService.getBreedOptions().subscribe((res) => console.log(res));
-    this.optionsService.getStateOptions().subscribe((res) => console.log(res));
+    this.optionsService
+      .getBreedOptions()
+      .subscribe((res) => (this.BreedOptions = res));
+    this.optionsService
+      .getStateOptions()
+      .subscribe((res) => (this.stateOptions = res));
   }
 
   get Name() {
@@ -75,18 +82,35 @@ export class AddpetComponent {
     this.Pet.Sterilized = Sterilized;
   };
 
+  selectBreed = (id: any) => {
+    this.Pet.Breed1 = id;
+  };
+
+  selectState = (id: any) => {
+    this.Pet.State = id;
+  };
+
+  selectType = (id: number) => {
+    this.Pet.Type = id;
+  };
+
+  selectGender = (id: number) => {
+    this.Pet.Gender = id;
+  };
+
+  selectAge = (id: number) => {
+    this.Pet.Age = id;
+  };
+
   handleFormSubmit = () => {
+    let userId: any = sessionStorage.getItem('state');
+    userId = JSON.parse(userId).userId;
     this.Pet = {
       ...this.Pet,
       Name: this.addPet.get('Name').value,
-      Type: 0,
-      Age: 0,
-      Breed1: 0,
-      Gender: 3,
-      Color1: 0,
       State: this.addPet.get('State').value,
       City: this.addPet.get('City').value,
-      RescuerID: '',
+      RescuerID: userId,
       Description: this.addPet.get('Description').value,
       PhotoAmt: 4,
     };

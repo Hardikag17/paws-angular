@@ -11,6 +11,8 @@ import { RequestsComponent } from './requests/requests.component';
 import { AddpetComponent } from './addpet/addpet.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [ProfileComponent, RequestsComponent, AddpetComponent],
@@ -20,8 +22,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     SharedModule,
     FontAwesomeModule,
     MatSelectModule,
+    MatIconModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
   ],
 })
 export class UsersModule {}

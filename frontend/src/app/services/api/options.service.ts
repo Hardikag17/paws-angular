@@ -8,15 +8,19 @@ import { Observable, map } from 'rxjs';
 export class OptionsService {
   constructor(private http: HttpClient) {}
 
-  getBreedOptions = (): Observable<any> => {
-    return this.http
-      .get(`${API_ROOT}/options/breeds`)
-      .pipe(map((res) => console.log(res)));
+  getBreedOptions = (): Observable<[{ value: number; label: string }]> => {
+    return this.http.get(`${API_ROOT}/options/breeds`).pipe(
+      map((res: any) => {
+        return res.options;
+      })
+    );
   };
 
-  getStateOptions = (): Observable<any> => {
-    return this.http
-      .get(`${API_ROOT}/options/states`)
-      .pipe(map((res) => console.log(res)));
+  getStateOptions = (): Observable<[{ value: number; label: string }]> => {
+    return this.http.get(`${API_ROOT}/options/states`).pipe(
+      map((res: any) => {
+        return res.options;
+      })
+    );
   };
 }
