@@ -117,15 +117,13 @@ const getNearPets = async (req, res) => {
 
 // Add Pet
 const addPet = async (req, res) => {
-  const newPet = new Pet(req.body.data);
-  console.log(newPet);
+  const newPet = new Pet(req.body.Pet);
 
   try {
     await newPet.save();
-
-    res.status(200).send("Pet Successfully added");
+    res.status(200).send({ status: 200, message: "Pet Successfully added" });
   } catch (err) {
-    res.send(err);
+    res.status(400).send({ status: 400, message: err });
   }
 };
 

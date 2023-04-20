@@ -4,6 +4,7 @@ import { Pet } from 'src/app/interfaces/pet';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { OptionsService } from 'src/app/services/api/options.service';
 import { PetsService } from 'src/app/services/api/pets.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-addpet',
@@ -61,7 +62,8 @@ export class AddpetComponent {
 
   constructor(
     private optionsService: OptionsService,
-    private getPetService: PetsService
+    private getPetService: PetsService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -101,18 +103,17 @@ export class AddpetComponent {
   selectAge = (id: number) => (this.Pet.Age = id);
 
   getLocation = () => {
-    let location: {};
     if (!navigator.geolocation) {
       console.log('Geolocation not supported');
     } else {
       console.log('loading...');
       navigator.geolocation.getCurrentPosition(
         (position: any) => {
-          location = {
-            lat: position.coords.latitude,
-            loc: position.coords.longitude,
+          this.Pet.location = {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
           };
-          //  this.Pet.location = { location.lat, location.loc };
+          console.log(this.Pet.location);
         },
         () => {
           console.log('Unable to get the location');
@@ -135,19 +136,31 @@ export class AddpetComponent {
         PhotoAmt: 4,
       };
 
-      this.getPetService.addPet(this.Pet).subscribe((res) => console.log(res));
+      this.getPetService.addPet(this.Pet).subscribe((res) => {
+        if (res.status === 200) {
+          this.router.navigate(['', 'adopt']).then(
+            (nav) => {
+              console.log('router navigation', nav);
+            },
+            (err) => {
+              console.log(err);
+            }
+          );
+        } else {
+          this.alert.message = res.message;
+          this.alert.bool = true;
+        }
+      });
     } else alert('Please select the images to upload');
   };
 
   uploadImages = async (event: any) => {
     let selectedFiles = event.target.files;
     if (selectedFiles.length !== 4) alert('You must upload 4 images');
-    // else {
-    //   // Upload Image to s3 servers
-    //   this.Pet.PetID = await this.getPetService.uploadImages(selectedFiles);
-    // }
-
-    this.Pet.PetID = 'test';
+    else {
+      // Upload Image to s3 servers
+      this.Pet.PetID = await this.getPetService.uploadImages(selectedFiles);
+    }
 
     this.preview = [];
     [...selectedFiles].forEach((element) => {

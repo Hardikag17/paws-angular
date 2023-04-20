@@ -11,11 +11,10 @@ import * as upload from 'superagent';
 export class PetsService {
   constructor(private http: HttpClient) {}
 
-  addPet = (Pet: Pet): Observable<string> => {
+  addPet = (Pet: Pet): Observable<{ status: number; message: string }> => {
     return this.http.post(`${API_ROOT}/pets/addpet`, { Pet }).pipe(
       map((res: any) => {
-        console.log(res);
-        return '';
+        return { status: res.status, message: res.message };
       })
     );
   };

@@ -109,26 +109,6 @@
     </b>
     <div class="d-flex flex-wrap justify-content-center">
       <app-card *ngFor="let Pet of searchResults" [Pet]="Pet"></app-card>
-
-      <!-- {Pets?.response?.map((element, key) => {
-          return (
-            <Link
-              onClick={() => setSearchText("")}
-              to={`/petview/${element.PetID}`}
-            >
-              <div key={key}>
-                <Card
-                  name={element.Name}
-                  description={element.description}
-                  rescuerId={element.RescuerID}
-                  PetID={element.PetID}
-                  comments=" 5"
-                  postedOn="4/3/2023"
-                />
-              </div>
-            </Link>
-          );
-        })} -->
     </div>
   </div>
 </div>
