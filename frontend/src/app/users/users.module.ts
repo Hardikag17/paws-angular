@@ -14,9 +14,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { RequestCardComponent } from './requests/request-card/request-card.component';
 
 @NgModule({
-  declarations: [ProfileComponent, RequestsComponent, AddpetComponent],
+  declarations: [ProfileComponent, RequestsComponent, AddpetComponent, RequestCardComponent],
   imports: [
     CommonModule,
     UsersRoutingModule,
