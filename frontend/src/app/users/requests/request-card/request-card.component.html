@@ -1,1 +1,68 @@
-<p>Requests card</p>
+<div
+  class="requestCard container border rounded border-2 border-solid border-success border-opacity-50 py-2 bg-light m-2 shadow-sm"
+>
+  <div class="flex d-flex">
+    <div>
+      <img
+        class="rounded px-2 shadow-lg"
+        [ngStyle]="{
+          'background-image': '',
+          'background-size': 'cover',
+          height: '400px',
+          width: '350px'
+        }"
+        src="https://paws-adoption.s3.ap-south-1.amazonaws.com/pets/{{
+          request.PetID
+        }}-1.jpeg"
+      />
+    </div>
+    <div class="p-3 w-100 align-self-start">
+      <div class="">
+        <h3>
+          <b>{{ request.Name }}</b>
+        </h3>
+      </div>
+
+      <div class="pt-2">
+        <h6>{{ request.Description }}</h6>
+      </div>
+      <hr />
+      <div class="">Pet Details</div>
+      <ul>
+        <li>Age: {{ request.Age }}</li>
+        <li>Gender: {{ request.Gender }}</li>
+      </ul>
+    </div>
+  </div>
+  <div class="w-100 p-3">
+    <div class="d-flex flex justify-content-around mt-3">
+      <div class="text-white mx-1">
+        <div *ngIf="status === 'success'" class="text-black text-center">
+          <div>
+            <button disabled class="btn btn-success border-2 mx-2">
+              <fa-icon [icon]="icons.faCircle"></fa-icon>
+              &nbsp; Accepted
+            </button>
+            <button class="btn btn-dark m-1 text-white mx-2">
+              <fa-icon [icon]="icons.faMessage"></fa-icon> &nbsp; Chat
+            </button>
+          </div>
+          <h6 class="py-2">
+            Thankyou for joining the paws community. You can always reach reach
+            us out on mail in case of any queries
+          </h6>
+        </div>
+
+        <div *ngIf="status !== 'success'">
+          <button class="btn btn-secondary border-2">
+            <fa-icon [icon]="icons.faCircle"></fa-icon> Pending
+          </button>
+          <button class="btn btn-dark m-1 text-white mx-1">
+            <fa-icon [icon]="icons.faMessage"></fa-icon> &nbsp; Chat
+          </button>
+          <button class="btn btn-success m-1 text-white mx-1">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -15,9 +15,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { RequestCardComponent } from './requests/request-card/request-card.component';
+import { RequestsCardComponent } from './requests/requests-card/requests-card.component';
 
 @NgModule({
-  declarations: [ProfileComponent, RequestsComponent, AddpetComponent, RequestCardComponent],
+  declarations: [ProfileComponent, RequestsComponent, AddpetComponent, RequestCardComponent, RequestsCardComponent],
   imports: [
     CommonModule,
     UsersRoutingModule,

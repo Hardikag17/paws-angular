@@ -27,10 +27,10 @@ const uploadImages = async (req, res) => {
 
   let buffers = [...files].map((element) => element.buffer);
 
+  if (contentType == "image/jpg") extension = ".jpg";
   if (contentType == "image/jpeg") extension = ".jpeg";
   if (contentType == "image/webp") extension = ".webp";
   if (contentType == "image/svg") extension = ".svg";
-  if (contentType == "image/jpg") extension = ".jpg";
   if (contentType == "image/png") extension = ".png";
 
   for (var i = 0; i < buffers.length; i++) {

@@ -2,9 +2,23 @@
   <hr />
   <h3>Your Adoption Request</h3>
   <hr />
-  <div class="d-flex"></div>
+  <div class="d-flex">
+    <div *ngIf="request$ | async as request; else loading">
+      <app-request-card
+        [status]="request.status"
+        [request]="request.Pet"
+      ></app-request-card>
+    </div>
+  </div>
+
   <hr />
   <h3>Your Pet's Requests</h3>
   <hr />
-  <div class="d-flex"></div>
+  <div class="d-flex">
+    <ng-container *ngIf="requests$ | async as requests; else loading">
+      <app-requests-card></app-requests-card>
+    </ng-container>
+  </div>
 </div>
+
+<ng-template #loading> Loading... </ng-template>

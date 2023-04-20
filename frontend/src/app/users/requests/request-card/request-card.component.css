@@ -1,0 +1,10 @@
+.requestCard {
+  max-width: 650px;
+}
+.flex {
+  flex-direction: row;
+}
+
+.requestCard .img-div {
+  width: 280px;
+}

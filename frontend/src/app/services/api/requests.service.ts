@@ -2,30 +2,26 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { API_ROOT } from 'src/app/api-config';
 import { Pet } from 'src/app/interfaces/pet';
-import { Observable, map } from 'rxjs';
-import { StorageService } from '../storage.service';
-import { User } from 'src/app/interfaces/user';
-
+import { Observable, map, concatMap } from 'rxjs';
+import { PetsService } from './pets.service';
 @Injectable({
   providedIn: 'root',
 })
 export class RequestsService {
-  UserID!: User;
-
-  constructor(
-    private http: HttpClient,
-    private storageService: StorageService
-  ) {
-    this.storageService.getUserState().subscribe((res) => (this.UserID = res));
-  }
+  constructor(private http: HttpClient, private getPetService: PetsService) {}
 
   // Can be only one
-  getRequestByUserID = () => {
-    console.log(this.UserID);
-    return this.http.get(`${API_ROOT}/pets/requests/user/${this.UserID}`).pipe(
-      map((res: any) => {
-        console.log(res);
-      })
+  getRequestByUserID = (): Observable<{ Pet: Pet; status: string }> => {
+    let userId: any = sessionStorage.getItem('state');
+    userId = JSON.parse(userId).userId;
+    return this.http.get(`${API_ROOT}/pets/requests/user/${userId}`).pipe(
+      concatMap((response: any) =>
+        this.getPetService.getPetByPetID(response.PetID).pipe(
+          map((Pet) => {
+            return { Pet: Pet.response, status: response.status };
+          })
+        )
+      )
     );
   };
 
@@ -37,19 +33,31 @@ export class RequestsService {
     );
   };
 
-  getRequestsByRescuerID = (RescuerID: string) => {
+  getRequestsByRescuerID = (): Observable<any> => {
+    let RescuerID: any = sessionStorage.getItem('state');
+    RescuerID = JSON.parse(RescuerID).userId;
     return this.http.get(`${API_ROOT}/pets/requests/rescuer/${RescuerID}`).pipe(
-      map((res: any) => {
-        console.log(res);
-      })
+      concatMap((response: any) =>
+        this.getPetService.getPetByPetID(response.Requests.PetID).pipe(
+          map((Pet) => {
+            console.log({
+              Pet: Pet.response,
+              requests: response.Requests.Requests,
+            });
+            return { Pet: Pet.response, requests: response.Requests.Requests };
+          })
+        )
+      )
     );
   };
 
   requestPet = (PetID: string) => {
+    let userId: any = sessionStorage.getItem('state');
+    userId = JSON.parse(userId).userId;
     return this.http
       .post(`${API_ROOT}/pets/requestpet`, {
         PetID: PetID,
-        UserID: this.UserID,
+        UserID: userId,
       })
       .pipe(
         map((res: any) => {
@@ -59,10 +67,12 @@ export class RequestsService {
   };
 
   acceptAdoptRequest = (PetID: string, RescuerID: string) => {
+    let userId: any = sessionStorage.getItem('state');
+    userId = JSON.parse(userId).userId;
     return this.http
       .post(`${API_ROOT}/pets/adopt`, {
         PetID: PetID,
-        UserID: this.UserID,
+        UserID: userId,
         RescuerID: RescuerID,
       })
       .pipe(

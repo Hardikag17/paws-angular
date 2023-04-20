@@ -3,7 +3,7 @@ import { StateService } from '../shared/state/state.service';
 import { User } from '../interfaces/user';
 import { UserService } from './api/user.service';
 import { Observable } from 'rxjs';
-const initialState: User = {
+var initialState: User = {
   userId: '',
   email: '',
   name: '',
@@ -41,7 +41,7 @@ export class StorageService extends StateService<User> {
           overlay: false,
           mobile: user[0].mobile,
         };
-
+        initialState = finalState;
         sessionStorage.setItem('state', JSON.stringify(finalState));
         this.setState(finalState);
       },

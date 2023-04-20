@@ -11,11 +11,15 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   newUser = (user: UserRegister) => {
-    return this.http.post(`${API_ROOT}/user/register`, {
-      name: user.name,
-      email: user.email,
-      password: user.password,
-    });
+    return this.http.post(
+      `${API_ROOT}/user/register`,
+      {
+        name: user.name,
+        email: user.email,
+        password: user.password,
+      },
+      { responseType: 'text' }
+    );
   };
 
   login = (user: UserLogin) => {
