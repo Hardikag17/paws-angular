@@ -15,8 +15,17 @@ export class AddpetComponent {
   BreedOptions!: [{ label: string; value: number }];
   stateOptions!: [{ label: string; value: number }];
   ageOptions = new Array(100);
+  alert: { bool: boolean; message: string } = {
+    bool: false,
+    message: 'Error: Someting went wrong please try again',
+  };
 
-  preview = ['', '', '', ''];
+  preview: any = [
+    '../../../assets/icons/elephant.jpg',
+    '../../../assets/icons/elephant.jpg',
+    '../../../assets/icons/elephant.jpg',
+    '../../../assets/icons/elephant.jpg',
+  ];
   Pet: Pet = {
     PetID: '',
     Type: 4,
@@ -75,61 +84,76 @@ export class AddpetComponent {
     return this.addPet.get('Address');
   }
 
-  addHealth = (health: number) => {
-    this.Pet.Health = health;
-  };
+  addHealth = (health: number) => (this.Pet.Health = health);
 
-  addVaccinated = (Vaccinated: number) => {
-    this.Pet.Vaccinated = Vaccinated;
-  };
-  addSterilized = (Sterilized: number) => {
-    this.Pet.Sterilized = Sterilized;
-  };
+  addVaccinated = (Vaccinated: number) => (this.Pet.Vaccinated = Vaccinated);
 
-  selectBreed = (id: any) => {
-    this.Pet.Breed1 = id;
-  };
+  addSterilized = (Sterilized: number) => (this.Pet.Sterilized = Sterilized);
 
-  selectState = (id: any) => {
-    this.Pet.State = id;
-  };
+  selectBreed = (id: number) => (this.Pet.Breed1 = id);
 
-  selectType = (id: number) => {
-    this.Pet.Type = id;
-  };
+  selectState = (id: number) => (this.Pet.State = id);
 
-  selectGender = (id: number) => {
-    this.Pet.Gender = id;
-  };
+  selectType = (id: number) => (this.Pet.Type = id);
 
-  selectAge = (id: number) => {
-    this.Pet.Age = id;
+  selectGender = (id: number) => (this.Pet.Gender = id);
+
+  selectAge = (id: number) => (this.Pet.Age = id);
+
+  getLocation = () => {
+    let location: {};
+    if (!navigator.geolocation) {
+      console.log('Geolocation not supported');
+    } else {
+      console.log('loading...');
+      navigator.geolocation.getCurrentPosition(
+        (position: any) => {
+          location = {
+            lat: position.coords.latitude,
+            loc: position.coords.longitude,
+          };
+          //  this.Pet.location = { location.lat, location.loc };
+        },
+        () => {
+          console.log('Unable to get the location');
+        }
+      );
+    }
   };
 
   handleFormSubmit = () => {
-    let userId: any = sessionStorage.getItem('state');
-    userId = JSON.parse(userId).userId;
-    this.Pet = {
-      ...this.Pet,
-      Name: this.addPet.get('Name').value,
-      State: this.addPet.get('State').value,
-      City: this.addPet.get('City').value,
-      RescuerID: userId,
-      Description: this.addPet.get('Description').value,
-      PhotoAmt: 4,
-    };
+    if (this.Pet.PetID.length > 0) {
+      let userId: any = sessionStorage.getItem('state');
+      userId = JSON.parse(userId).userId;
+      this.Pet = {
+        ...this.Pet,
+        Name: this.addPet.get('Name').value,
+        State: this.addPet.get('State').value,
+        City: this.addPet.get('City').value,
+        RescuerID: userId,
+        Description: this.addPet.get('Description').value,
+        PhotoAmt: 4,
+      };
 
-    console.log('Pet', this.Pet);
+      this.getPetService.addPet(this.Pet).subscribe((res) => console.log(res));
+    } else alert('Please select the images to upload');
   };
 
-  uploadImages = (event: any) => {
+  uploadImages = async (event: any) => {
     let selectedFiles = event.target.files;
     if (selectedFiles.length !== 4) alert('You must upload 4 images');
-    else {
-      // Upload Image to s3
-      this.getPetService
-        .uploadImages(selectedFiles)
-        .subscribe((res) => console.log(res));
-    }
+    // else {
+    //   // Upload Image to s3 servers
+    //   this.Pet.PetID = await this.getPetService.uploadImages(selectedFiles);
+    // }
+
+    this.Pet.PetID = 'test';
+
+    this.preview = [];
+    [...selectedFiles].forEach((element) => {
+      const objectUrl = URL.createObjectURL(element);
+      console.log(objectUrl);
+      this.preview.push(objectUrl);
+    });
   };
 }

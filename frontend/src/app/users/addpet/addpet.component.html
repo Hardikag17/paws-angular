@@ -6,6 +6,13 @@
     novalidate
     class="add-pet"
   >
+    <div
+      *ngIf="alert.bool"
+      class="alert alert-danger text-center py-2"
+      role="alert"
+    >
+      {{ alert.message }}
+    </div>
     <div class="d-flex flex-row-reverse me-2" [ngStyle]="{ color: 'green' }">
       <h1>
         <b>
@@ -20,7 +27,7 @@
         <h3>Pet Details</h3>
       </b>
       <hr />
-      <div>
+      <div class="details">
         <!-- Text Details  -->
         <div class="text-details">
           <div class="form-outline input-group mb-3">
@@ -262,14 +269,14 @@
                 aria-label="Address:"
                 formControlName="Address"
               ></textarea>
-              <!-- <span
+              <span
                 role="button"
                 class="input-group-text cursor-pointer"
                 id="basic-addon2"
-                onClick="{getLocation}"
+                (click)="getLocation()"
               >
                 Click me &nbsp; <fa-icon [icon]="icons.faLocationDot"></fa-icon>
-              </span> -->
+              </span>
             </div>
             <div
               *ngIf="!Address?.valid && (Address?.dirty || Address?.touched)"

@@ -3,20 +3,38 @@ import { HttpClient } from '@angular/common/http';
 import { API_ROOT } from 'src/app/api-config';
 import { Pet } from 'src/app/interfaces/pet';
 import { Observable, map } from 'rxjs';
+import * as upload from 'superagent';
+
 @Injectable({
   providedIn: 'root',
 })
 export class PetsService {
   constructor(private http: HttpClient) {}
 
-  addPet = (Pet: Pet) => {};
-
-  uploadImages = (selectedFiles: any): Observable<any> => {
-    return this.http.post(`${API_ROOT}/pets/upload`, selectedFiles).pipe(
+  addPet = (Pet: Pet): Observable<string> => {
+    return this.http.post(`${API_ROOT}/pets/addpet`, { Pet }).pipe(
       map((res: any) => {
-        console.log('uplaodedFiles', res);
+        console.log(res);
+        return '';
       })
     );
+  };
+
+  uploadImages = async (selectedFiles: any) => {
+    try {
+      let res: any = await upload
+        .post(`${API_ROOT}/pets/upload`)
+        .attach('files', selectedFiles[0])
+        .attach('files', selectedFiles[1])
+        .attach('files', selectedFiles[2])
+        .attach('files', selectedFiles[3]);
+
+      if (res.text.length > 0) {
+        return res.text;
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   getPets = (page: Number): Observable<any> => {

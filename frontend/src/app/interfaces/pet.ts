@@ -17,4 +17,5 @@ export interface Pet {
   updatedAt?: string;
   Description: string;
   PhotoAmt: number;
+  location?: any;
 }
