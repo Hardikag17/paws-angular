@@ -13,14 +13,17 @@ export class RequestsCardComponent implements OnInit {
   icons = { faMessage, faCircle };
   @Input() requests!: any;
   @Input() Pet!: Pet;
-  userInfo$!: any;
+  usersInfo$!: any;
 
   constructor(private getUserService: UserService) {}
 
   ngOnInit() {
-    console.log('Requests', this.requests);
-    this.userInfo$ = this.getUserService
-      .getUserInfo(this.requests[0].Requests[0])
-      .pipe(map((res: any) => console.log(res.userInfo)));
+    console.log(this.requests);
+    // if (this.requests[0].length > 0)
+    //   this.requests[0].Requests.forEach((element: any) => {
+    //     this.getUserService
+    //       .getUserInfo(element)
+    //       .pipe(map((res: any) => this.usersInfo$.push([res])));
+    //   });
   }
 }

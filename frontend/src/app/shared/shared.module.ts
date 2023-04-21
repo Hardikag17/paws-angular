@@ -9,6 +9,7 @@ import { ButtonComponent } from './components/button/button.component';
 import { AdoptComponent } from './adopt/adopt.component';
 import { CardComponent } from './components/card/card.component';
 import { PetviewComponent } from './petview/petview.component';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -17,8 +18,9 @@ import { PetviewComponent } from './petview/petview.component';
     AdoptComponent,
     CardComponent,
     PetviewComponent,
+    LoaderComponent,
   ],
   imports: [CommonModule, SharedRoutingModule, FontAwesomeModule, FormsModule],
-  exports: [ButtonComponent, CardComponent],
+  exports: [ButtonComponent, CardComponent, LoaderComponent],
 })
 export class SharedModule {}

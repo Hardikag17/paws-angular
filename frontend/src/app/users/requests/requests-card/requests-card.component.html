@@ -35,43 +35,46 @@
     </div>
   </div>
   <div *ngIf="requests.length > 0; else noRequests" class="w-100">
-    <ng-container *ngFor="let request of requests">
-      <div
-        *ngIf="userInfo$ | async as userInfo; else loading"
-        class="d-flex flex justify-content-between mt-3 bg-secondary text-white p-2 rounded"
-      >
-        <div>
-          <img
-            type="button"
-            data-bs-toggle="dropdown"
-            src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg"
-            width="55"
-            height="55"
-            class="rounded-circle dropdown-toggle"
-            alt="Placeholder profile pic"
-          />
-        </div>
-        <div>
-          <p>
-            Name: {{ userInfo }}
-            <br />
-            Mobile:
-          </p>
-        </div>
-        <div>
-          <button class="btn btn-dark m-1 text-white mx-1">
-            <fa-icon [icon]="icons.faMessage"></fa-icon>&nbsp; Chat
-          </button>
-          <button class="btn btn-success m-1 text-white mx-1">Accept</button>
-          <button
-            onClick="{rejectAdoptRequest}"
-            class="btn btn-danger m-1 text-white mx-1"
-          >
-            Reject
-          </button>
-        </div>
+    <!-- <ng-container *ngIf="usersInfo$ | async as usersInfo; else loading"> -->
+    <div
+      *ngFor="let request of requests"
+      class="d-flex flex justify-content-between mt-3 bg-secondary text-white p-2 rounded"
+    >
+      <div>
+        <img
+          type="button"
+          data-bs-toggle="dropdown"
+          src="https://paws-adoption.s3.ap-south-1.amazonaws.com/users/{{
+            request.requests
+          }}.jpeg"
+          onError="this.src='https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg'"
+          width="55"
+          height="55"
+          class="rounded-circle dropdown-toggle"
+          alt="Placeholder profile pic"
+        />
       </div>
-    </ng-container>
+      <div>
+        <p>
+          Id: {{ request.Requests }}
+          <br />
+          Mobile:
+        </p>
+      </div>
+      <div>
+        <button class="btn btn-dark m-1 text-white mx-1">
+          <fa-icon [icon]="icons.faMessage"></fa-icon>&nbsp; Chat
+        </button>
+        <button class="btn btn-success m-1 text-white mx-1">Accept</button>
+        <button
+          onClick="{rejectAdoptRequest}"
+          class="btn btn-danger m-1 text-white mx-1"
+        >
+          Reject
+        </button>
+      </div>
+    </div>
+    <!-- </ng-container> -->
   </div>
 </div>
 
