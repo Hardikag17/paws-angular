@@ -20,6 +20,10 @@
   height: 100vh;
 }
 
+.flex {
+  flex-direction: row;
+}
+
 @media screen and (max-width: 900px) {
   .content-div {
     width: 90%;

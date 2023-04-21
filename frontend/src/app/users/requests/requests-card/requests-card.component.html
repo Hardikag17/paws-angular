@@ -1,1 +1,86 @@
-<p>requests-card works!</p>
+<div
+  class="userRequestCard container border rounded border-2 border-solid border-success border-opacity-50 py-2 bg-light m-2 shadow-sm"
+>
+  <div class="flex d-flex">
+    <div>
+      <img
+        class="rounded px-2 shadow-lg"
+        [ngStyle]="{
+          'background-image': '',
+          'background-size': 'cover',
+          height: '400px',
+          width: '350px'
+        }"
+        src="https://paws-adoption.s3.ap-south-1.amazonaws.com/pets/{{
+          Pet.PetID
+        }}-1.jpeg"
+      />
+    </div>
+    <div class="p-3 w-100 align-self-start">
+      <div class="">
+        <h3>
+          <b>{{ Pet.Name }}</b>
+        </h3>
+      </div>
+
+      <div class="pt-2">
+        <h6>{{ Pet.Description }}</h6>
+      </div>
+      <hr />
+      <div class="">Pet Details</div>
+      <ul>
+        <li>Age: {{ Pet.Age }}</li>
+        <li>Gender: {{ Pet.Gender }}</li>
+      </ul>
+    </div>
+  </div>
+  <div *ngIf="requests.length > 0; else noRequests" class="w-100">
+    <ng-container *ngFor="let request of requests">
+      <div
+        *ngIf="userInfo$ | async as userInfo; else loading"
+        class="d-flex flex justify-content-between mt-3 bg-secondary text-white p-2 rounded"
+      >
+        <div>
+          <img
+            type="button"
+            data-bs-toggle="dropdown"
+            src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg"
+            width="55"
+            height="55"
+            class="rounded-circle dropdown-toggle"
+            alt="Placeholder profile pic"
+          />
+        </div>
+        <div>
+          <p>
+            Name: {{ userInfo }}
+            <br />
+            Mobile:
+          </p>
+        </div>
+        <div>
+          <button class="btn btn-dark m-1 text-white mx-1">
+            <fa-icon [icon]="icons.faMessage"></fa-icon>&nbsp; Chat
+          </button>
+          <button class="btn btn-success m-1 text-white mx-1">Accept</button>
+          <button
+            onClick="{rejectAdoptRequest}"
+            class="btn btn-danger m-1 text-white mx-1"
+          >
+            Reject
+          </button>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+<ng-template #noRequests>
+  <div
+    class="d-flex py-4 mb-2 flex justify-content-between mt-3 bg-secondary text-white p-2 rounded"
+  >
+    <div class="m-auto">No requests</div>
+  </div></ng-template
+>
+
+<ng-template #loading> Loading... </ng-template>

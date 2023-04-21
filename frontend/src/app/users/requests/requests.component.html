@@ -14,9 +14,17 @@
   <hr />
   <h3>Your Pet's Requests</h3>
   <hr />
-  <div class="d-flex">
-    <ng-container *ngIf="requests$ | async as requests; else loading">
-      <app-requests-card></app-requests-card>
+  <div
+    *ngIf="requests$ | async as requests; else loading"
+    class="d-flex w-100 flex-wrap justify-content-between"
+  >
+    <ng-container *ngFor="let el of requests">
+      <ng-container *ngIf="!el.Pet.Status">
+        <app-requests-card
+          [requests]="el.requests"
+          [Pet]="el.Pet"
+        ></app-requests-card>
+      </ng-container>
     </ng-container>
   </div>
 </div>

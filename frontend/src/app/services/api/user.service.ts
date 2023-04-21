@@ -42,6 +42,7 @@ export class UserService {
   };
 
   getUserInfo = (UserID: string) => {
+    console.log('userID', UserID);
     return this.http.post(`${API_ROOT}/user/userInfo`, {
       UserID: UserID,
     });

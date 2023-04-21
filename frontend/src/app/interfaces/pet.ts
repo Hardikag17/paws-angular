@@ -18,4 +18,5 @@ export interface Pet {
   Description: string;
   PhotoAmt: number;
   location?: { latitude: number; longitude: number };
+  Status?: boolean;
 }

@@ -2,13 +2,18 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { API_ROOT } from 'src/app/api-config';
 import { Pet } from 'src/app/interfaces/pet';
-import { Observable, map, concatMap } from 'rxjs';
+import { Observable, map, concatMap, switchMap, from, mergeMap } from 'rxjs';
 import { PetsService } from './pets.service';
+import { UserService } from './user.service';
 @Injectable({
   providedIn: 'root',
 })
 export class RequestsService {
-  constructor(private http: HttpClient, private getPetService: PetsService) {}
+  constructor(
+    private http: HttpClient,
+    private getPetService: PetsService,
+    private getUserService: UserService
+  ) {}
 
   // Can be only one
   getRequestByUserID = (): Observable<{ Pet: Pet; status: string }> => {
@@ -33,21 +38,39 @@ export class RequestsService {
     );
   };
 
-  getRequestsByRescuerID = (): Observable<any> => {
+  getRequestsByRescuerID = (): Observable<
+    [{ Pet: Pet; requests: [string] }]
+  > => {
     let RescuerID: any = sessionStorage.getItem('state');
     RescuerID = JSON.parse(RescuerID).userId;
     return this.http.get(`${API_ROOT}/pets/requests/rescuer/${RescuerID}`).pipe(
-      concatMap((response: any) =>
-        this.getPetService.getPetByPetID(response.Requests.PetID).pipe(
-          map((Pet) => {
-            console.log({
-              Pet: Pet.response,
-              requests: response.Requests.Requests,
-            });
-            return { Pet: Pet.response, requests: response.Requests.Requests };
-          })
-        )
-      )
+      map((response: any) => {
+        let tmp: any = [];
+        response.Requests.forEach((el: any) => {
+          tmp.push({ Pet: el.Pet, requests: el.requests });
+        });
+        console.log('final', tmp);
+        return tmp;
+      })
+      // switchMap((requests) =>
+      //   from(requests).pipe(map((res) => console.log('res', res)))
+      // ),
+      // concatMap((response: any) =>
+      //   this.getPetService.getPetByPetID(response.Requests.PetID).pipe(
+      //     map((Pet) => {
+      //       console.log({
+      //         Pet: Pet.response,
+      //         requests: response.Requests.Requests,
+      //       });
+      //       let tmp = {
+      //         Pet: Pet.response,
+      //         requests: response.Requests.Requests,
+      //       };
+
+      //       return tmp;
+      //     })
+      //   )
+      // )
     );
   };
 

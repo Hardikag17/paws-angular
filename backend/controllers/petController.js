@@ -345,17 +345,21 @@ const getRequestsByPetID = async (req, res) => {
 
 const getRequestsByRescuerID = async (req, res) => {
   const RescuerID = req.params.RescuerID;
-
-  // **Bug: Currently this function returns only one pet's requests
-  // **Hint: We need to save forEarch(Pet) response in temp array then send all reponse at once
+  var requests = [];
 
   try {
     let response = await Pet.find({ RescuerID: RescuerID });
 
     if (response && response.length > 0) {
-      Requests.find({ PetID: response[0].PetID }).then((response) => {
-        res.status(200).send({ status: "success", Requests: response[0] });
-      });
+      for (var i = 0; i < response.length; i++) {
+        let Pet = response[i];
+        Requests.find({ PetID: response[i].PetID }).then((req) => {
+          requests.push({ Pet: Pet, requests: req });
+          if (requests.length == response.length) {
+            res.status(200).send({ status: "success", Requests: requests });
+          }
+        });
+      }
     } else {
       res
         .status(200)
