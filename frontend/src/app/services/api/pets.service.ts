@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { API_ROOT } from 'src/app/api-config';
 import { Pet } from 'src/app/interfaces/pet';
-import { Observable, map } from 'rxjs';
+import { Observable, map, from, tap } from 'rxjs';
 import * as upload from 'superagent';
 
 @Injectable({
@@ -68,6 +68,25 @@ export class PetsService {
       .pipe(
         map((res: any) => {
           return res.message;
+        })
+      );
+  };
+
+  getNearByPets = (userLocation: {
+    lat: number;
+    lng: number;
+  }): Observable<any> => {
+    return this.http
+      .get(
+        `${API_ROOT}/pets/getNearPets?latitude=${userLocation.lat}&&longitude=${userLocation.lng}`
+      )
+      .pipe(
+        map((res: any) => {
+          let final: any = [];
+          res.forEach((element: any) => {
+            final.push(element.location);
+          });
+          return final;
         })
       );
   };

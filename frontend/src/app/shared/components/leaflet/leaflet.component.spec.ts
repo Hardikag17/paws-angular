@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OverlayComponent } from './overlay.component';
+import { LeafletComponent } from './leaflet.component';
 
-describe('OverlayComponent', () => {
-  let component: OverlayComponent;
-  let fixture: ComponentFixture<OverlayComponent>;
+describe('LeafletComponent', () => {
+  let component: LeafletComponent;
+  let fixture: ComponentFixture<LeafletComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ OverlayComponent ]
+      declarations: [ LeafletComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(OverlayComponent);
+    fixture = TestBed.createComponent(LeafletComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
