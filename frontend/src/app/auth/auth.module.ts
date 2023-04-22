@@ -19,6 +19,7 @@ import { SharedModule } from '../shared/shared.module';
     ReactiveFormsModule,
     RouterModule,
   ],
+  exports: [],
 })
 export class AuthModule {
   constructor() {}
