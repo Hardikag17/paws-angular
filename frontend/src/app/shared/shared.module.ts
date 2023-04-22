@@ -12,6 +12,7 @@ import { CardComponent } from './components/card/card.component';
 import { PetviewComponent } from './petview/petview.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { LeafletComponent } from './components/leaflet/leaflet.component';
+import { AnalyticsComponent } from './analytics/analytics.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { LeafletComponent } from './components/leaflet/leaflet.component';
     PetviewComponent,
     LoaderComponent,
     LeafletComponent,
+    AnalyticsComponent,
   ],
   imports: [
     CommonModule,
