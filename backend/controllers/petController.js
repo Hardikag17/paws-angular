@@ -244,7 +244,7 @@ const deleteRequest = async (req, res) => {
     if (response && response[0].Requests.length > 0) {
       let PetID = response[0].PetID;
       try {
-        let response = await Requests.updateOne(
+        await Requests.updateOne(
           { PetID: PetID },
           { $pullAll: { Requests: [UserID] } }
         );

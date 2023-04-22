@@ -8,3 +8,9 @@
 .requestCard .img-div {
   width: 280px;
 }
+
+@media screen and (max-width: 900px) {
+  .flex {
+    flex-direction: column;
+  }
+}

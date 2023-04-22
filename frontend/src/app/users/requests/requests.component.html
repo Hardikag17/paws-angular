@@ -3,30 +3,44 @@
   <h3>Your Adoption Request</h3>
   <hr />
   <div class="d-flex">
-    <div *ngIf="request$ | async as request; else loading">
-      <app-request-card
-        [status]="request.status"
-        [request]="request.Pet"
-      ></app-request-card>
+    <div *ngIf="request$ | loading | async as request">
+      <ng-container *ngIf="request.value">
+        <app-request-card
+          [status]="request.value.Pet.Status"
+          [request]="request.value.Pet"
+          (onCancelRequest)="cancelRequest()"
+        ></app-request-card
+      ></ng-container>
+      <ng-container *ngIf="request.error">
+        No Requests found (If something is wrong, Please reach out to us.)
+      </ng-container>
+      <ng-container *ngIf="request.loading">
+        <app-loader></app-loader
+      ></ng-container>
     </div>
   </div>
-
   <hr />
   <h3>Your Pet's Requests</h3>
   <hr />
   <div
-    *ngIf="requests$ | async as requests; else loading"
+    *ngIf="requests$ | loading | async as requests"
     class="d-flex w-100 flex-wrap justify-content-between"
   >
-    <ng-container *ngFor="let el of requests">
-      <ng-container *ngIf="!el.Pet.Status">
-        <app-requests-card
-          [requests]="el.requests"
-          [Pet]="el.Pet"
-        ></app-requests-card>
+    <ng-container *ngIf="requests.value">
+      <ng-container *ngFor="let el of requests.value">
+        <ng-container *ngIf="!el.Pet.Status">
+          <app-requests-card
+            [requests]="el.requests"
+            [Pet]="el.Pet"
+          ></app-requests-card>
+        </ng-container>
       </ng-container>
+    </ng-container>
+    <ng-container *ngIf="requests.error">
+      If something is wrong, Please report us the issue.
+    </ng-container>
+    <ng-container *ngIf="requests.loading">
+      <app-loader></app-loader>
     </ng-container>
   </div>
 </div>
-
-<ng-template #loading> <app-loader></app-loader> </ng-template>

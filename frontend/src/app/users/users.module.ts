@@ -16,9 +16,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { RequestCardComponent } from './requests/request-card/request-card.component';
 import { RequestsCardComponent } from './requests/requests-card/requests-card.component';
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
-  declarations: [ProfileComponent, RequestsComponent, AddpetComponent, RequestCardComponent, RequestsCardComponent],
+  declarations: [
+    ProfileComponent,
+    RequestsComponent,
+    AddpetComponent,
+    RequestCardComponent,
+    RequestsCardComponent,
+    ChatComponent,
+  ],
   imports: [
     CommonModule,
     UsersRoutingModule,

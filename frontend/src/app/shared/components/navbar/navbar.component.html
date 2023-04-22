@@ -57,7 +57,9 @@
         <!-- User Logged In -->
         <ul *ngIf="user.user" class="navbar-nav mr-auto mr-2 mr-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" routerLink="/chats"> Chat </a>
+            <a class="nav-link active" routerLink="{{ user.userId }}/chat">
+              Chat
+            </a>
           </li>
           <li class="px-2 cursor-pointer dropdown">
             <img

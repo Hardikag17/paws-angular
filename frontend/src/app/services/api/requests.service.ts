@@ -52,25 +52,6 @@ export class RequestsService {
         console.log('final', tmp);
         return tmp;
       })
-      // switchMap((requests) =>
-      //   from(requests).pipe(map((res) => console.log('res', res)))
-      // ),
-      // concatMap((response: any) =>
-      //   this.getPetService.getPetByPetID(response.Requests.PetID).pipe(
-      //     map((Pet) => {
-      //       console.log({
-      //         Pet: Pet.response,
-      //         requests: response.Requests.Requests,
-      //       });
-      //       let tmp = {
-      //         Pet: Pet.response,
-      //         requests: response.Requests.Requests,
-      //       };
-
-      //       return tmp;
-      //     })
-      //   )
-      // )
     );
   };
 
@@ -87,6 +68,14 @@ export class RequestsService {
           console.log(res);
         })
       );
+  };
+
+  cancelRequest = () => {
+    let userId: any = sessionStorage.getItem('state');
+    userId = JSON.parse(userId).userId;
+    return this.http.post(`${API_ROOT}/pets//deleterequest`, {
+      UserID: userId,
+    });
   };
 
   acceptAdoptRequest = (PetID: string, RescuerID: string) => {

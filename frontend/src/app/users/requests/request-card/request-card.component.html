@@ -1,5 +1,5 @@
 <div
-  class="requestCard container border rounded border-2 border-solid border-success border-opacity-50 py-2 bg-light m-2 shadow-sm"
+  class="requestCard container border rounded border-2 border-solid border-success border-opacity-50 py-2 bg-light shadow-sm"
 >
   <div class="flex d-flex">
     <div>
@@ -37,7 +37,7 @@
   <div class="w-100 p-3">
     <div class="d-flex flex justify-content-around mt-3">
       <div class="text-white mx-1">
-        <div *ngIf="status === 'success'" class="text-black text-center">
+        <div *ngIf="status" class="text-black text-center">
           <div>
             <button disabled class="btn btn-success border-2 mx-2">
               <fa-icon [icon]="icons.faCircle"></fa-icon>
@@ -54,13 +54,18 @@
         </div>
 
         <div *ngIf="status !== 'success'">
-          <button class="btn btn-secondary border-2">
+          <button disabled class="btn btn-secondary border-2">
             <fa-icon [icon]="icons.faCircle"></fa-icon> Pending
           </button>
           <button class="btn btn-dark m-1 text-white mx-1">
             <fa-icon [icon]="icons.faMessage"></fa-icon> &nbsp; Chat
           </button>
-          <button class="btn btn-success m-1 text-white mx-1">Cancel</button>
+          <button
+            (click)="cancelRequest()"
+            class="btn btn-success m-1 text-white mx-1"
+          >
+            Cancel
+          </button>
         </div>
       </div>
     </div>
