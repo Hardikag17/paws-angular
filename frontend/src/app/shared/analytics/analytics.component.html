@@ -1,9 +1,31 @@
-<div id="analytics" class="h-50">
+<div id="analytics" class="h-125">
   <div class="d-flex flex p-4">
-    <div class="m-auto p-2 m-auto chart">Pie chart</div>
-    <div class="m-auto p-2 m-auto chart">Stats</div>
+    <div class="m-auto p-2 m-auto chart"><app-chart></app-chart></div>
+    <div
+      class="m-auto p-3 my-5 m-auto chart border border-2 border-success rounded shadow-lg"
+    >
+      <h1 class="text-success">
+        <u> Stats </u>
+      </h1>
+      <div *ngIf="metrics$ | async as metrics; else loading">
+        <h4>
+          <b>Pets: {{ metrics.metric[0] }}</b>
+        </h4>
+        <h4>
+          <b>Images: 14,500 in S3</b>
+        </h4>
+        <h4>
+          <b>Days: 1st March, 2023</b>
+        </h4>
+        <h4>
+          <b>Pets helped: {{ metrics.metric[1] }}</b>
+        </h4>
+      </div>
+    </div>
+  </div>
+  <div class="relative flex justify-contents-end bottom-0">
+    <app-leaflet></app-leaflet>
   </div>
 </div>
-<div class="relative flex justify-contents-end bottom-0">
-  <app-leaflet></app-leaflet>
-</div>
+
+<ng-template #loading> Loading... </ng-template>

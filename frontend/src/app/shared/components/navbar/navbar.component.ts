@@ -4,6 +4,7 @@ import { PetsService } from 'src/app/services/api/pets.service';
 import { UserService } from 'src/app/services/api/user.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { Pet } from 'src/app/interfaces/pet';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -16,7 +17,8 @@ export class NavbarComponent {
   constructor(
     private getStorageService: StorageService,
     private userService: UserService,
-    private petsServcie: PetsService
+    private petsServcie: PetsService,
+    private router: Router
   ) {
     this.getStorageService.getUserState().subscribe({
       next: (res) => {
@@ -27,8 +29,6 @@ export class NavbarComponent {
       },
     });
   }
-
-  ngOnInit() {}
 
   getPets = (searchText: string) => {
     this.searchText = searchText;
@@ -53,5 +53,14 @@ export class NavbarComponent {
   Logout = () => {
     this.userService.logout();
     this.user = this.getStorageService.clearUserState();
+    this.user.user = false;
+    this.router.navigate(['', 'adopt']).then(
+      (nav) => {
+        console.log('router navigation', nav);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   };
 }

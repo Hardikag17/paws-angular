@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Pet } from 'src/app/interfaces/pet';
 import { ActivatedRoute } from '@angular/router';
 import {
@@ -21,7 +21,7 @@ import { from, map } from 'rxjs';
   templateUrl: './petview.component.html',
   styleUrls: ['./petview.component.css'],
 })
-export class PetviewComponent {
+export class PetviewComponent implements OnInit {
   icons = {
     faHeart,
     faMessage,

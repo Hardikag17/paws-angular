@@ -17,8 +17,6 @@ export class RegisterComponent {
 
   constructor(private userService: UserService) {}
 
-  ngOnInit(): void {}
-
   handleFormSubmit = () => {
     const newuser: UserRegister = {
       name: this.user.name,

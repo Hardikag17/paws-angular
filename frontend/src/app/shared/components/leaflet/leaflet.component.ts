@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as Leaflet from 'leaflet';
 import { PetsService } from 'src/app/services/api/pets.service';
 Leaflet.Icon.Default.imagePath = 'assets/';
@@ -16,7 +16,7 @@ Leaflet.Icon.Default.imagePath = 'assets/';
     `,
   ],
 })
-export class LeafletComponent {
+export class LeafletComponent implements OnInit {
   map!: Leaflet.Map;
   markers: Leaflet.Marker[] = [];
   userLocation!: { lat: number; lng: number };

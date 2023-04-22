@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { Pet } from 'src/app/interfaces/pet';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   templateUrl: './addpet.component.html',
   styleUrls: ['./addpet.component.css'],
 })
-export class AddpetComponent {
+export class AddpetComponent implements OnInit {
   icons = { faLocationDot };
   BreedOptions!: [{ label: string; value: number }];
   stateOptions!: [{ label: string; value: number }];

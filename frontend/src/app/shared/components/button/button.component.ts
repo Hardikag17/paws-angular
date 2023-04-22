@@ -12,10 +12,6 @@ export class ButtonComponent {
   @Input() disabled: boolean = false;
   @Output() btnClick = new EventEmitter();
 
-  constructor() {}
-
-  ngOnInit(): void {}
-
   onClick = () => {
     this.btnClick.emit();
   };

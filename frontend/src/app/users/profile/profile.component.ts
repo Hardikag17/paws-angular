@@ -12,10 +12,7 @@ export class ProfileComponent {
   icons = { faPenToSquare };
   userInfo!: User;
 
-  constructor(
-    private getStorageService: StorageService,
-    private userService: UserService
-  ) {
+  constructor(private getStorageService: StorageService) {
     this.getStorageService.getUserState().subscribe({
       next: (res) => {
         console.log(res);

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/api/user.service';
@@ -9,7 +9,7 @@ import { StorageService } from 'src/app/services/storage.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   userLogin: any = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [
@@ -32,7 +32,9 @@ export class LoginComponent {
     private getUserService: UserService,
     private getStateService: StorageService,
     private router: Router
-  ) {
+  ) {}
+
+  ngOnInit() {
     this.getStateService.getUserState().subscribe({
       next: (res) => {
         if (res.user) {
