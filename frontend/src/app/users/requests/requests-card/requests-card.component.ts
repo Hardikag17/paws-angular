@@ -26,4 +26,11 @@ export class RequestsCardComponent implements OnInit {
     //       .pipe(map((res: any) => this.usersInfo$.push([res])));
     //   });
   }
+
+  acceptRequest = (id: string) => {
+    console.log('Accept Adoption Request', id);
+  };
+  rejectRequest = (id: string) => {
+    console.log('Reject Adoption Request', id);
+  };
 }

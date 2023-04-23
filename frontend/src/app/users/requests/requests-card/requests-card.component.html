@@ -65,9 +65,14 @@
         <button class="btn btn-dark m-1 text-white mx-1">
           <fa-icon [icon]="icons.faMessage"></fa-icon>&nbsp; Chat
         </button>
-        <button class="btn btn-success m-1 text-white mx-1">Accept</button>
         <button
-          onClick="{rejectAdoptRequest}"
+          (click)="acceptRequest(request.Requests[0])"
+          class="btn btn-success m-1 text-white mx-1"
+        >
+          Accept
+        </button>
+        <button
+          (click)="rejectRequest(request.Requests[0])"
           class="btn btn-danger m-1 text-white mx-1"
         >
           Reject

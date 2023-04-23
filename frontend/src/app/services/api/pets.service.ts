@@ -44,12 +44,14 @@ export class PetsService {
     return this.http.get(`${API_ROOT}/pets/pet/${PetID}`);
   };
 
-  adoptPet = (Pet: Pet, userId: string) => {
-    return this.http.post(`${API_ROOT}/pets/adopt`, {
-      PetID: Pet.PetID,
-      UserID: userId,
-      RescuerID: Pet.RescuerID,
-    });
+  adoptPet = (Pet: Pet, userId: string): Observable<any> => {
+    return this.http
+      .post(`${API_ROOT}/pets/adopt`, {
+        PetID: Pet.PetID,
+        UserID: userId,
+        RescuerID: Pet.RescuerID,
+      })
+      .pipe(map((res) => console.log('Adopt Pet', res)));
   };
 
   searchPets = (searchText: string): Observable<any> => {
