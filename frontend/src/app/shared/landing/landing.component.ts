@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PetsService } from 'src/app/services/api/pets.service';
 
 @Component({
   selector: 'app-landing',
@@ -6,7 +7,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./landing.component.css'],
 })
 export class LandingComponent implements OnInit {
-  constructor() {}
+  recentAdded$!: any;
+  recentUpdated$!: any;
+  tabValue: number = 1;
 
-  ngOnInit(): void {}
+  constructor(private getPetsService: PetsService) {}
+
+  ngOnInit(): void {
+    this.recentUpdated$ = this.getPetsService.getRecentUpdatedPets();
+
+    this.recentAdded$ = this.getPetsService.getRecentAddedPets();
+  }
+
+  handleTab = (value: number) => {
+    this.tabValue = value;
+  };
 }

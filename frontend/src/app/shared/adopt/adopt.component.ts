@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   faBackwardStep,
   faForwardStep,
@@ -11,7 +11,7 @@ import { Pet } from 'src/app/interfaces/pet';
   templateUrl: './adopt.component.html',
   styleUrls: ['./adopt.component.css'],
 })
-export class AdoptComponent {
+export class AdoptComponent implements OnInit {
   icons = { faForwardStep, faBackwardStep };
   Pets: Pet[] = [];
   page: number = 1;
@@ -19,6 +19,20 @@ export class AdoptComponent {
   constructor(private PetsService: PetsService) {}
 
   ngOnInit() {
+    this.getPets();
+  }
+
+  moveForword = () => {
+    this.page++;
+    this.getPets();
+  };
+
+  moveBackword = () => {
+    if (this.page - 1 > 0) this.page--;
+    this.getPets();
+  };
+
+  getPets = () => {
     this.PetsService.getPets(this.page).subscribe({
       next: (res) => {
         this.Pets = res.response;
@@ -28,15 +42,5 @@ export class AdoptComponent {
         console.error('There was an error!', error);
       },
     });
-  }
-
-  moveForword = () => {
-    this.page++;
-    console.log(this.page);
-  };
-
-  moveBackword = () => {
-    if (this.page - 1 > 0) this.page--;
-    console.log(this.page);
   };
 }

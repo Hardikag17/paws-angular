@@ -90,4 +90,12 @@ export class PetsService {
         })
       );
   };
+
+  getRecentUpdatedPets = (): Observable<any> => {
+    return this.http.get(`${API_ROOT}/pets/recentUpdatedPets`);
+  };
+
+  getRecentAddedPets = (): Observable<any> => {
+    return this.http.get(`${API_ROOT}/pets/recentAddedPets`);
+  };
 }
