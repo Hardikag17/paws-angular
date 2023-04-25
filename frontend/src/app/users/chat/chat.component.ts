@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { Message } from 'src/app/interfaces/message';
 import { ChatService } from 'src/app/services/api/chat.service';
 import { formatDate } from '@angular/common';
-
+import { Socket } from 'ngx-socket-io';
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -24,7 +24,7 @@ export class ChatComponent implements OnInit {
   senderId!: string;
   receiverId!: string;
 
-  constructor(private getChatService: ChatService) {
+  constructor(private getChatService: ChatService, private socket: Socket) {
     this.userId = JSON.parse(this.userId).userId;
   }
 
@@ -42,7 +42,10 @@ export class ChatComponent implements OnInit {
 
     console.log(this.userId);
 
-    this.messages.push(this.getChatService.receiveMessages());
+    // this.messages.push(this.getChatService.receiveMessages());
+    this.socket.on('receive_message', (data: any) => {
+      this.messages.push(data);
+    });
   }
 
   setReceiver = (receverId: string, PetID: string) => {

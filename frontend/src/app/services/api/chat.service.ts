@@ -90,11 +90,11 @@ export class ChatService {
     this.socket.emit('join_room', room);
   };
 
-  receiveMessages = () => {
-    this.socket.on('receive_message', (data: any) => {
-      return data;
-    });
-  };
+  // receiveMessages = () => {
+  //   this.socket.on('receive_message', (data: any) => {
+  //     return data;
+  //   });
+  // };
 
   postMessage = (message: any) => {
     this.socket.emit('send_message', message);
