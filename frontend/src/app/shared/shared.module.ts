@@ -15,6 +15,8 @@ import { LeafletComponent } from './components/leaflet/leaflet.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
 import { ChartComponent } from './components/chart/chart.component';
 import { LoadingPipe } from '../pipes/loading.pipe';
+import { MessageComponent } from './components/message/message.component';
+import { MessageDirective } from '../directives/message.directive';
 @NgModule({
   declarations: [
     LandingComponent,
@@ -27,6 +29,8 @@ import { LoadingPipe } from '../pipes/loading.pipe';
     AnalyticsComponent,
     ChartComponent,
     LoadingPipe,
+    MessageComponent,
+    MessageDirective,
   ],
   imports: [
     CommonModule,
@@ -35,6 +39,12 @@ import { LoadingPipe } from '../pipes/loading.pipe';
     FormsModule,
     LeafletModule,
   ],
-  exports: [ButtonComponent, CardComponent, LoaderComponent, LoadingPipe],
+  exports: [
+    ButtonComponent,
+    CardComponent,
+    LoaderComponent,
+    LoadingPipe,
+    MessageComponent,
+  ],
 })
 export class SharedModule {}

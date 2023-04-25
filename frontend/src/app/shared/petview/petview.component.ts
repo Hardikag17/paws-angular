@@ -16,6 +16,7 @@ import { SocialService } from 'src/app/services/api/social.service';
 import { SocialList, Social } from 'src/app/interfaces/social';
 import { StorageService } from 'src/app/services/storage.service';
 import { from, map } from 'rxjs';
+import { ChatService } from 'src/app/services/api/chat.service';
 @Component({
   selector: 'app-petview',
   templateUrl: './petview.component.html',
@@ -50,7 +51,8 @@ export class PetviewComponent implements OnInit {
     private route: ActivatedRoute,
     private storageService: StorageService,
     private getPetService: PetsService,
-    private getSocialService: SocialService
+    private getSocialService: SocialService,
+    private getChatService: ChatService
   ) {
     this.PetID = '';
   }
@@ -137,5 +139,13 @@ export class PetviewComponent implements OnInit {
 
   handleOnClick = (event: any) => {
     this.imgS = event.target.src;
+  };
+
+  addChatList = () => {
+    this.getChatService
+      .addChat(this.user.userId, this.element.RescuerID, this.element.PetID)
+      .subscribe((res) => console.log(res));
+
+    alert('Sucessfully added');
   };
 }

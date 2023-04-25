@@ -23,7 +23,7 @@ module.exports = (socket, io) => {
         {
           RoomId: data.RoomId,
         },
-        { $push: { texts: { text: data.text, Sender: data.SenderId } } }
+        { $push: { texts: { text: data.text, Sender: data.Sender } } }
       );
       console.log(res);
     } catch (err) {

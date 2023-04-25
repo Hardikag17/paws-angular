@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 
 import { UsersRoutingModule } from './users-routing.module';
 import { ProfileComponent } from './profile/profile.component';
@@ -17,6 +18,14 @@ import { RouterModule } from '@angular/router';
 import { RequestCardComponent } from './requests/request-card/request-card.component';
 import { RequestsCardComponent } from './requests/requests-card/requests-card.component';
 import { ChatComponent } from './chat/chat.component';
+import { API_ROOT } from '../api-config';
+
+const config: SocketIoConfig = {
+  url: API_ROOT, // socket server url;
+  options: {
+    transports: ['websocket'],
+  },
+};
 
 @NgModule({
   declarations: [
@@ -38,6 +47,7 @@ import { ChatComponent } from './chat/chat.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     RouterModule,
+    SocketIoModule.forRoot(config),
   ],
 })
 export class UsersModule {}
