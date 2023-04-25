@@ -17,8 +17,16 @@
           class="rounded-circle dropdown-toggle"
           alt="Placeholder profile pic"
         />
-        <b class="w-full m-auto"> {{ user.UserId }}</b>
-        <ng-template #userId>{{ user.UserId }}.</ng-template>
+        <b *ngIf="user.username; else userId" class="w-full m-auto">
+          {{ user.username }}</b
+        >
+        <ng-template #userId>
+          {{
+            user.UserId.length > 7
+              ? (user.UserId | slice : 0 : 7) + "..."
+              : user.UserId
+          }}</ng-template
+        >
       </button></ng-container
     >
   </div>

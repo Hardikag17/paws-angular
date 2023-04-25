@@ -47,6 +47,11 @@ export class ChatComponent implements OnInit {
 
     this.getChatService.getChatList(this.userId).subscribe((res) => {
       this.chatList = res;
+      res.forEach((el: any) => {
+        this.getUserService.getUserInfo(el.UserId).subscribe((res) => {
+          el.username = res;
+        });
+      });
     });
 
     console.log(this.userId);
