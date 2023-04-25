@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Message } from 'src/app/interfaces/message';
 import { ChatService } from 'src/app/services/api/chat.service';
@@ -12,6 +12,7 @@ import { PetsService } from 'src/app/services/api/pets.service';
   styleUrls: ['./chat.component.css'],
 })
 export class ChatComponent implements OnInit {
+  @ViewChild('scroll') private scrollMessages!: ElementRef;
   message!: string;
   messages!: [any];
   room!: string;
@@ -54,12 +55,22 @@ export class ChatComponent implements OnInit {
       });
     });
 
-    console.log(this.userId);
-
     // this.messages.push(this.getChatService.receiveMessages());
     this.socket.on('receive_message', (data: any) => {
       this.messages.push(data);
     });
+
+    this.scrollToBottom();
+  }
+  ngAfterViewChecked() {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom(): void {
+    try {
+      this.scrollMessages.nativeElement.scrollTop =
+        this.scrollMessages.nativeElement.scrollHeight;
+    } catch (err) {}
   }
 
   setReceiver = (receverId: string, PetID: string) => {
@@ -78,17 +89,18 @@ export class ChatComponent implements OnInit {
     });
   };
   postMessage = () => {
-    let message: Message = {
-      RoomId: this.room,
-      Sender: this.userId,
-      RecevierId: this.receiverId,
-      text: this.message,
-      createdAt: this.current,
-    };
-    this.message = '';
-    console.log(message);
-    this.messages.push(message);
-    console.log(this.messages);
-    this.getChatService.postMessage(message);
+    if (this.message.length > 0) {
+      let message: Message = {
+        RoomId: this.room,
+        Sender: this.userId,
+        RecevierId: this.receiverId,
+        text: this.message,
+        createdAt: this.current,
+      };
+
+      this.message = '';
+      this.messages.push(message);
+      this.getChatService.postMessage(message);
+    } else alert('Empty message cannot be sent');
   };
 }

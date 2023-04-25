@@ -58,7 +58,7 @@
           </div>
         </div>
       </div>
-      <div *ngIf="messages" class="overflow-auto bg-light h-100">
+      <div #scroll *ngIf="messages" class="overflow-scroll bg-light h-100">
         <ng-container *ngFor="let message of messages">
           <app-message
             [message]="message"

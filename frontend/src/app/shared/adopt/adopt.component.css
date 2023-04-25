@@ -20,7 +20,7 @@ a {
   background-color: #f3f3f3;
   border: 2px solid rgba(0, 128, 0, 0.214);
   border-radius: 10px;
-  width: 200px !important;
+  width: 250px !important;
 }
 
 @media (min-width: 576px) {
@@ -55,7 +55,15 @@ a {
 }
 
 @media screen and (max-width: 900px) {
+  .dashboard {
+    display: flex;
+    flex-direction: column-reverse;
+  }
   .flex {
     flex-direction: column;
+  }
+  .filterOptions {
+    display: hidden;
+    visibility: hidden;
   }
 }

@@ -36,8 +36,20 @@ export class PetsService {
     }
   };
 
-  getPets = (page: Number): Observable<any> => {
-    return this.http.get(`${API_ROOT}/pets?page=${page}`);
+  getPets = (
+    page: number,
+    minAge: number,
+    maxAge: number,
+    gender: string,
+    breed: string,
+    health: string
+  ): Observable<any> => {
+    console.log(page, maxAge, minAge, gender, breed, health);
+    let url = `${API_ROOT}/pets?page=${page}&&minAge=${minAge}&&maxAge=${maxAge}`;
+    if (gender) url += `&&gender=${gender}`;
+    if (breed) url += `&&breed=${breed}`;
+    if (health) url += `&&health=${health}`;
+    return this.http.get(url);
   };
 
   getPetByPetID = (PetID: string | null): Observable<any> => {

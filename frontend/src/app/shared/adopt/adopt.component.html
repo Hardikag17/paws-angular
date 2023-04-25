@@ -5,55 +5,125 @@
         class="d-flex flex-sm-column flex-row flex-nowrap align-items-center w-100 sticky-top"
       >
         <ul
-          class="nav px-3 options w-100 nav-pills nav-flush flex-sm-column flex-row flex-nowrap mb-auto mx-auto text-center align-items-center sticky-top"
+          class="nav px-3 options w-100 nav-pills nav-flush flex-sm-column flex-row flex-nowrap mb-auto me-auto text-center align-items-center sticky-top"
         >
+          <br />
+          <li class="text-success h4"><b>Age</b></li>
           <li>
-            <a
-              href="#"
-              class="nav-link py-3 px-2"
-              title=""
-              data-bs-toggle="tooltip"
-              data-bs-placement="right"
-              data-bs-original-title="Customers"
-            >
-              Health
-            </a>
+            <span>{{ min }}</span>
+            <mat-slider min="1" max="100">
+              <input
+                value="7"
+                (input)="minAgeChange($event)"
+                matSliderStartThumb
+              />
+              <input
+                value="40"
+                (input)="maxAgeChange($event)"
+                matSliderEndThumb
+              />
+            </mat-slider>
+            <span>{{ max }}</span>
           </li>
+          <hr class="color-red w-100" />
+          <br />
+          <li class="text-success h4"><b>Gender</b></li>
           <li>
-            <a
-              href="#"
-              class="nav-link py-3 px-2"
-              title=""
-              data-bs-toggle="tooltip"
-              data-bs-placement="right"
-              data-bs-original-title="Customers"
-            >
-              Health
-            </a>
+            <mat-form-field appearance="fill">
+              <mat-select
+                required
+                (selectionChange)="selectGender($event.value)"
+              >
+                <!-- <mat-option>-- None --</mat-option> -->
+                <mat-option [value]="1">Male</mat-option>
+                <mat-option [value]="2">Female</mat-option>
+                <mat-option [value]="3">Not Specified</mat-option>
+              </mat-select>
+              <mat-label
+                ><mat-icon>pets</mat-icon> <b> Gender</b>
+                <i> select</i></mat-label
+              >
+            </mat-form-field>
           </li>
+
+          <!-- <hr class="color-red w-100" /> -->
+
+          <br />
+          <li class="text-success h4"><b>Breed</b></li>
           <li>
-            <a
-              href="#"
-              class="nav-link py-3 px-2"
-              title=""
-              data-bs-toggle="tooltip"
-              data-bs-placement="right"
-              data-bs-original-title="Customers"
-            >
-              Health
-            </a>
+            <mat-form-field appearance="fill">
+              <mat-select
+                required
+                (selectionChange)="selectBreed($event.value)"
+              >
+                <mat-option>-- None --</mat-option>
+                <mat-option
+                  *ngFor="let Breed of BreedOptions"
+                  [value]="Breed.value"
+                  >{{ Breed.label }}</mat-option
+                >
+              </mat-select>
+              <mat-label
+                ><mat-icon>pets</mat-icon> <b> Breed</b>
+                <i> select</i></mat-label
+              >
+            </mat-form-field>
           </li>
+
+          <!-- <hr class="color-red w-100" /> -->
+          <br />
+          <li class="text-success h4"><b>Health</b></li>
+          <div class="mb-3">
+            <span
+              role="button"
+              class="btn text-black border border-2 cursor-pointer lg:px-3 my-2 mx-1"
+              id="basic-addon2"
+              (click)="addHealth(1)"
+              [ngClass]="health == 1 ? 'border-success' : ''"
+            >
+              Healthy
+            </span>
+            <span
+              role="button"
+              class="btn text-black border border-2 cursor-pointer lg:px-3 my-2 mx-1"
+              id="basic-addon2"
+              (click)="addHealth(2)"
+              [ngClass]="health == 2 ? 'border-success' : ''"
+            >
+              Minor Injury
+            </span>
+            <span
+              role="button"
+              class="btn text-black border border-2 cursor-pointer lg:px-3 my-2 mx-1"
+              id="basic-addon2"
+              (click)="addHealth(3)"
+              [ngClass]="health == 3 ? 'border-success' : ''"
+            >
+              Serious Injury
+            </span>
+            <span
+              role="button"
+              class="btn text-black border border-2 cursor-pointer lg:px-3 my-2 mx-1"
+              id="basic-addon2"
+              (click)="addHealth(0)"
+              [ngClass]="health == 0 ? 'border-success' : ''"
+            >
+              Not Specified
+            </span>
+          </div>
+
+          <hr class="color-red w-100" />
         </ul>
       </div>
     </div>
 
     <div class="cards d-flex flex-column">
       <div>
-        <h5>Page no:</h5>
+        <h5>Page no:{{ page }}</h5>
       </div>
-      <div class="align-self-end me-5">
+      <!-- <div class="align-self-end me-5">
         <h5>Sort By</h5>
-      </div>
+      </div> -->
       <div class="d-flex flex-wrap justify-content-between"></div>
       <br />
       <div class="d-flex flex-wrap justify-content-between">

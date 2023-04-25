@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
 
 import { SharedRoutingModule } from './shared-routing.module';
 import { LandingComponent } from './landing/landing.component';
@@ -39,6 +42,9 @@ import { MessageDirective } from '../directives/message.directive';
     FontAwesomeModule,
     FormsModule,
     LeafletModule,
+    MatSliderModule,
+    MatIconModule,
+    MatSelectModule,
   ],
   exports: [
     ButtonComponent,
