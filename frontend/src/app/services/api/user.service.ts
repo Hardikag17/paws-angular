@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { API_ROOT } from '../../api-config';
 import { User, UserLogin, UserRegister } from '../../interfaces/user';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -41,11 +41,16 @@ export class UserService {
     });
   };
 
-  getUserInfo = (UserID: string) => {
-    console.log('userID', UserID);
-    return this.http.post(`${API_ROOT}/user/userInfo`, {
-      UserID: UserID,
-    });
+  getUserInfo = (UserID: string): Observable<any> => {
+    return this.http
+      .post(`${API_ROOT}/user/userInfo`, {
+        UserID: UserID,
+      })
+      .pipe(
+        map((res: any) => {
+          return res.userInfo[0].name;
+        })
+      );
   };
 
   getUserState = () => {

@@ -18,14 +18,19 @@
           alt="Placeholder profile pic"
         />
         <b class="w-full m-auto"> {{ user.UserId }}</b>
+        <ng-template #userId>{{ user.UserId }}.</ng-template>
       </button></ng-container
     >
   </div>
-  <div *ngIf="receiverId" class="w-75 bg-white h-90 d-flex flex-column rounded">
+  <div
+    *ngIf="receiverId && petId"
+    class="w-75 bg-white h-90 d-flex flex-column rounded"
+  >
     <div
+      *ngIf="userName$ | async as username; else loading"
       class="w-100 h-100 bg-white d-flex flex-column m-2 rounded overflow-auto"
     >
-      <div class="w-100 h-20">
+      <div *ngIf="petName; else loading" class="w-100 h-20">
         <div
           class="w-100 d-flex align-items-center bg-success p-2 text-white rounded"
         >
@@ -41,7 +46,7 @@
             />
           </div>
           <div>
-            <span> {{ receiverId }} </span>-<span>{{ petId }}</span>
+            <span> {{ username }} </span>-<span>{{ petName }}</span>
           </div>
         </div>
       </div>
@@ -81,4 +86,7 @@
   </div>
 </div>
 
-<ng-template #loading>Loading...</ng-template>
+<ng-template #loading
+  >No User Found. Sorry, We are running on test data. Many of our Pets have no
+  users to talk to.</ng-template
+>

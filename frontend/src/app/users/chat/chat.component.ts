@@ -4,6 +4,8 @@ import { Message } from 'src/app/interfaces/message';
 import { ChatService } from 'src/app/services/api/chat.service';
 import { formatDate } from '@angular/common';
 import { Socket } from 'ngx-socket-io';
+import { UserService } from 'src/app/services/api/user.service';
+import { PetsService } from 'src/app/services/api/pets.service';
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -17,6 +19,8 @@ export class ChatComponent implements OnInit {
   petId!: string;
   current = '';
   day = new Date();
+  userName$!: any;
+  petName!: string;
 
   // Getting the userId
   userId: any = sessionStorage.getItem('state');
@@ -24,7 +28,12 @@ export class ChatComponent implements OnInit {
   senderId!: string;
   receiverId!: string;
 
-  constructor(private getChatService: ChatService, private socket: Socket) {
+  constructor(
+    private getChatService: ChatService,
+    private socket: Socket,
+    private getUserService: UserService,
+    private getPetsService: PetsService
+  ) {
     this.userId = JSON.parse(this.userId).userId;
   }
 
@@ -36,9 +45,9 @@ export class ChatComponent implements OnInit {
       '+0530'
     );
 
-    this.getChatService
-      .getChatList(this.userId)
-      .subscribe((res) => (this.chatList = res));
+    this.getChatService.getChatList(this.userId).subscribe((res) => {
+      this.chatList = res;
+    });
 
     console.log(this.userId);
 
@@ -53,6 +62,10 @@ export class ChatComponent implements OnInit {
     this.petId = PetID;
     this.getChatService.getRoom(this.userId, receverId).subscribe((res) => {
       this.room = res;
+      this.userName$ = this.getUserService.getUserInfo(receverId);
+      this.getPetsService.getPetByPetID(this.petId).subscribe((res) => {
+        this.petName = res.response.Name;
+      });
       this.getChatService
         .getChats(this.room)
         .subscribe((res) => (this.messages = res));

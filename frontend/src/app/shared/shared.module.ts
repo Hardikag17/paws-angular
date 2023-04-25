@@ -17,6 +17,7 @@ import { ChartComponent } from './components/chart/chart.component';
 import { LoadingPipe } from '../pipes/loading.pipe';
 import { MessageComponent } from './components/message/message.component';
 import { MessageDirective } from '../directives/message.directive';
+
 @NgModule({
   declarations: [
     LandingComponent,
