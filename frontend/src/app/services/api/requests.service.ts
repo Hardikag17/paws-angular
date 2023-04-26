@@ -78,14 +78,14 @@ export class RequestsService {
     });
   };
 
-  acceptAdoptRequest = (PetID: string, RescuerID: string) => {
+  acceptAdoptRequest = (PetID: string, RequesterID: string) => {
     let userId: any = sessionStorage.getItem('state');
     userId = JSON.parse(userId).userId;
     return this.http
       .post(`${API_ROOT}/pets/adopt`, {
         PetID: PetID,
-        UserID: userId,
-        RescuerID: RescuerID,
+        UserID: RequesterID,
+        RescuerID: userId,
       })
       .pipe(
         map((res: any) => {

@@ -1,7 +1,7 @@
 <div
   class="userRequestCard container border rounded border-2 my-2 border-solid border-success border-opacity-50 py-2 bg-light shadow-sm"
 >
-  <div class="flex d-flex">
+  <div class="flex d-flex flex-wrap mx-auto justify-content-center">
     <div>
       <img
         class="rounded px-2 shadow-lg"
@@ -34,10 +34,16 @@
       </ul>
     </div>
   </div>
-  <div *ngIf="requests.length > 0; else noRequests" class="w-100">
+  <div
+    *ngIf="
+      requests.length > 0 && requests[0].Requests.length > 0;
+      else noRequests
+    "
+    class="w-100"
+  >
     <!-- <ng-container *ngIf="usersInfo$ | async as usersInfo; else loading"> -->
     <div
-      *ngFor="let request of requests"
+      *ngFor="let request of requests[0]?.Requests"
       class="d-flex flex justify-content-between mt-3 bg-secondary text-white p-2 rounded"
     >
       <div>
@@ -45,7 +51,7 @@
           type="button"
           data-bs-toggle="dropdown"
           src="https://paws-adoption.s3.ap-south-1.amazonaws.com/users/{{
-            request.requests
+            request
           }}.jpeg"
           onError="this.src='https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg'"
           width="55"
@@ -56,7 +62,7 @@
       </div>
       <div>
         <p>
-          Id: {{ request.Requests }}
+          Id: {{ request }}
           <br />
           Mobile:
         </p>
@@ -66,13 +72,13 @@
           <fa-icon [icon]="icons.faMessage"></fa-icon>&nbsp; Chat
         </button>
         <button
-          (click)="acceptRequest(request.Requests[0])"
+          (click)="acceptRequest(request)"
           class="btn btn-success m-1 text-white mx-1"
         >
           Accept
         </button>
         <button
-          (click)="rejectRequest(request.Requests[0])"
+          (click)="rejectRequest(request)"
           class="btn btn-danger m-1 text-white mx-1"
         >
           Reject

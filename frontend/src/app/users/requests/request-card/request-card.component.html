@@ -43,7 +43,10 @@
               <fa-icon [icon]="icons.faCircle"></fa-icon>
               &nbsp; Accepted
             </button>
-            <button class="btn btn-dark m-1 text-white mx-2">
+            <button
+              (click)="addChatList()"
+              class="btn btn-dark m-1 text-white mx-2"
+            >
               <fa-icon [icon]="icons.faMessage"></fa-icon> &nbsp; Chat
             </button>
           </div>
@@ -53,11 +56,14 @@
           </h6>
         </div>
 
-        <div *ngIf="status !== 'success'">
+        <div *ngIf="!status">
           <button disabled class="btn btn-secondary border-2">
             <fa-icon [icon]="icons.faCircle"></fa-icon> Pending
           </button>
-          <button class="btn btn-dark m-1 text-white mx-1">
+          <button
+            (click)="addChatList()"
+            class="btn btn-dark m-1 text-white mx-1"
+          >
             <fa-icon [icon]="icons.faMessage"></fa-icon> &nbsp; Chat
           </button>
           <button

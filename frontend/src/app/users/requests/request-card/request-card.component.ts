@@ -1,9 +1,8 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 import { faMessage, faCircle } from '@fortawesome/free-solid-svg-icons';
 import { Pet } from 'src/app/interfaces/pet';
-import { PetsService } from 'src/app/services/api/pets.service';
-import { RequestsService } from 'src/app/services/api/requests.service';
-import * as request from 'superagent';
+import { ChatService } from 'src/app/services/api/chat.service';
 
 @Component({
   selector: 'app-request-card',
@@ -16,7 +15,27 @@ export class RequestCardComponent {
   @Input() status!: string;
   @Output() onCancelRequest: EventEmitter<Pet> = new EventEmitter();
 
+  constructor(private router: Router, private getChatService: ChatService) {}
+
   cancelRequest = () => {
     this.onCancelRequest.emit(this.request);
+  };
+
+  addChatList = () => {
+    console.log('here');
+    let userId: any = sessionStorage.getItem('state');
+    userId = JSON.parse(userId).userId;
+    this.getChatService
+      .addChat(userId, this.request.RescuerID, this.request.PetID)
+      .subscribe((res) => {
+        this.router.navigate([`${userId}/chat`]).then(
+          (chat) => {
+            console.log('router navigation', chat);
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
+      });
   };
 }

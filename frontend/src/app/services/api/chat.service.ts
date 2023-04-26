@@ -50,7 +50,6 @@ export class ChatService {
     receiverId: string,
     PetID: string
   ): Observable<any> => {
-    console.log(senderId, receiverId, PetID);
     return this.http
       .post(
         `${API_ROOT}/chat/chatlist/add`,
@@ -59,7 +58,7 @@ export class ChatService {
           ConnectionId: receiverId,
           PetID: PetID,
         },
-        { withCredentials: true }
+        { withCredentials: true, responseType: 'text' }
       )
       .pipe(map((res) => console.log(res)));
   };

@@ -8,4 +8,5 @@ import { Component, Input } from '@angular/core';
 export class MessageComponent {
   @Input() message: any;
   @Input() SenderId!: string;
+  @Input() userId!: string;
 }

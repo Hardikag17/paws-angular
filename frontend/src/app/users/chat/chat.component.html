@@ -46,7 +46,11 @@
             <img
               type="button"
               data-bs-toggle="dropdown"
-              src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg"
+              src="https://paws-adoption.s3.ap-south-1.amazonaws.com/users/{{
+                userId
+              }}.jpeg  "
+              onError="this.src =
+                  'https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg'"
               width="55"
               height="55"
               class="rounded-circle dropdown-toggle"
@@ -63,6 +67,7 @@
           <app-message
             [message]="message"
             [SenderId]="message.Sender"
+            [userId]="userId"
           ></app-message
         ></ng-container>
       </div>

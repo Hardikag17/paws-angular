@@ -1,5 +1,6 @@
 .userRequestCard {
   width: 100%;
+  width: 600px;
 }
 
 .flex {
@@ -7,7 +8,7 @@
 }
 
 .requestCard .img-div {
-  width: 300px;
+  width: 300px !important;
 }
 
 @media screen and (max-width: 900px) {

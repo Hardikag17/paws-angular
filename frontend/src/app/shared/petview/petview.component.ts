@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Pet } from 'src/app/interfaces/pet';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   faHeart,
   faMessage,
@@ -52,7 +52,8 @@ export class PetviewComponent implements OnInit {
     private storageService: StorageService,
     private getPetService: PetsService,
     private getSocialService: SocialService,
-    private getChatService: ChatService
+    private getChatService: ChatService,
+    private router: Router
   ) {
     this.PetID = '';
   }
@@ -144,8 +145,15 @@ export class PetviewComponent implements OnInit {
   addChatList = () => {
     this.getChatService
       .addChat(this.user.userId, this.element.RescuerID, this.element.PetID)
-      .subscribe((res) => console.log(res));
-
-    alert('Sucessfully added');
+      .subscribe((res) => {
+        this.router.navigate([`${this.user.userId}/chat`]).then(
+          (chat) => {
+            console.log('router navigation', chat);
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
+      });
   };
 }
