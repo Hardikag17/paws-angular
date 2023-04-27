@@ -34,8 +34,7 @@
             placeholder="Search"
             aria-label="Search"
             value="{{ searchText }}"
-            [(ngModel)]="searchText"
-            (ngModelChange)="getPets($event)"
+            (keyup)="getPets($event)"
           />
           <app-button text="Search"></app-button>
         </div>
