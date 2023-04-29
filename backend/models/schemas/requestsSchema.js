@@ -17,7 +17,7 @@ const RequestSchema = new Schema({
   /**
    * Once User gets rejected he can not request the same pet again
    */
-  //   Rejected: [String],
+  Rejected: [String],
 });
 
 const Requests = mongoose.model("Request", RequestSchema);

@@ -310,6 +310,37 @@ const adoptPet = async (req, res) => {
   }
 };
 
+const rejectRequest = async (req, res) => {
+  // Only rescuer can call this method
+  const PetID = req.body.PetID;
+  const UserID = req.body.UserID;
+  const RescuerID = req.body.RescuerID;
+
+  try {
+    let response = await Pet.find({ PetID: PetID });
+
+    if (response && response[0].RescuerID == RescuerID && !response[0].Status) {
+      console.log("here2");
+      let temp = await Requests.findOneAndUpdate(
+        { PetID: PetID },
+        { $push: { Rejected: UserID } }
+      );
+
+      res.status(200).send({
+        status: "success",
+        message: ` ${UserID} is rejected to particapte in ${PetID} adoption`,
+      });
+    } else {
+      // Something went wrong, Pet cannot be adopted
+      res
+        .status(200)
+        .send({ status: "failed", message: "Pet cannot be adopted" });
+    }
+  } catch (err) {
+    res.status(400).send({ message: err });
+  }
+};
+
 const getRequestByUserID = async (req, res) => {
   // Can be only one
   const UserID = req.params.UserID;
@@ -411,6 +442,7 @@ module.exports = {
   getRequestByUserID,
   getRequestsByRescuerID,
   adoptPet,
+  rejectRequest,
   getRecentUpdated,
   getRecentAdded,
   getmostpopular,

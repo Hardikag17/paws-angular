@@ -18,10 +18,6 @@ export class RequestsCardComponent {
 
   constructor(private getRequestService: RequestsService) {}
 
-  ngOnInit() {
-    console.log(this.requests);
-  }
-
   acceptRequest = (id: string) => {
     console.log('Accept Adoption Request', id);
     this.getRequestService
@@ -33,5 +29,11 @@ export class RequestsCardComponent {
   };
   rejectRequest = (id: string) => {
     console.log('Reject Adoption Request', id);
+    this.getRequestService
+      .rejectAdoptRequest(this.Pet.PetID, id)
+      .subscribe((res) => {
+        console.log(res);
+        alert('Adoption Request Reject');
+      });
   };
 }

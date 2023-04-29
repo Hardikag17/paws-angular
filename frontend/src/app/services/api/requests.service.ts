@@ -94,5 +94,23 @@ export class RequestsService {
       );
   };
 
-  rejectAdoptRequest = () => {};
+  rejectAdoptRequest = (PetID: string, RequesterID: string) => {
+    let userId: any = sessionStorage.getItem('state');
+    userId = JSON.parse(userId).userId;
+    return this.http
+      .post(
+        `${API_ROOT}/pets/rejectRequest`,
+        {
+          PetID: PetID,
+          UserID: RequesterID,
+          RescuerID: userId,
+        },
+        { responseType: 'text' }
+      )
+      .pipe(
+        map((res: any) => {
+          console.log(res);
+        })
+      );
+  };
 }

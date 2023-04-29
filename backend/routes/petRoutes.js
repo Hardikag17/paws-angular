@@ -16,6 +16,7 @@ const {
   getRecentAdded,
   getNearPets,
   getmostpopular,
+  rejectRequest,
 } = require("../controllers/petController");
 const { uploadImages } = require("../controllers/fileUpload");
 
@@ -40,6 +41,7 @@ routes.post("/addpet", addPet);
 routes.post("/requestpet", requestPet);
 routes.post("/deleterequest", deleteRequest);
 routes.post("/adopt", adoptPet);
+routes.post("/rejectRequest", rejectRequest);
 
 // AWS
 routes.post("/upload", upload.array("files"), uploadImages);
