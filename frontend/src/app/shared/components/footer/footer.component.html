@@ -5,10 +5,16 @@
     class="text-center d-flex flex text-center align-items-center justify-content-start me-6 w-50"
   >
     <h6 class="px-3">
-      <a class="nav-link active" aria-current="page"> Adopt </a>
+      <a class="nav-link active" aria-current="page" routerLink="/adopt">
+        Adopt
+      </a>
     </h6>
     <h6 class="px-3">
-      <a class="nav-link active" aria-current="page" routerLink="/profile">
+      <a
+        class="nav-link active"
+        aria-current="page"
+        routerLink="{{ user.userId }}/profile"
+      >
         Profile
       </a>
     </h6>
