@@ -15,7 +15,6 @@ import { User } from 'src/app/interfaces/user';
 import { SocialService } from 'src/app/services/api/social.service';
 import { SocialList, Social } from 'src/app/interfaces/social';
 import { StorageService } from 'src/app/services/storage.service';
-import { from, map } from 'rxjs';
 import { ChatService } from 'src/app/services/api/chat.service';
 @Component({
   selector: 'app-petview',

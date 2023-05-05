@@ -5,7 +5,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { PetsService } from 'src/app/services/api/pets.service';
 import { Pet } from 'src/app/interfaces/pet';
-import { Observable } from 'rxjs';
 import { OptionsService } from 'src/app/services/api/options.service';
 
 @Component({
