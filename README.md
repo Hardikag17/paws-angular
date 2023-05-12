@@ -1,5 +1,8 @@
 # Paws Adoption
-Paws Adoption is a animal help and adoption community platform for animal lovers
+
+<img width="1435" alt="Screenshot 2023-05-12 at 5 27 24 PM" src="https://github.com/Hardikag17/paws-angular/assets/54525688/fcdb9a2a-a1d4-4911-8994-eaf07dbed82d">
+
+<h4>Paws Adoption is a animal help and adoption community platform for animal lovers</h4>
 
 ## Setting up the environment 
 
