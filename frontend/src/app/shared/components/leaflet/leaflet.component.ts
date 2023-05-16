@@ -18,6 +18,7 @@ Leaflet.Icon.Default.imagePath = 'assets/';
 })
 export class LeafletComponent implements OnInit {
   map!: Leaflet.Map;
+  Pets!: any;
   markers: Leaflet.Marker[] = [];
   userLocation!: { lat: number; lng: number };
   initialMarkers: [
@@ -38,6 +39,11 @@ export class LeafletComponent implements OnInit {
 
   user = new Leaflet.Icon({
     iconUrl: '/assets/user.svg',
+    iconSize: [50, 50],
+  });
+
+  paw = new Leaflet.Icon({
+    iconUrl: '/assets/paw.svg',
     iconSize: [50, 50],
   });
 
@@ -80,7 +86,8 @@ export class LeafletComponent implements OnInit {
       };
 
       this.getPetsService.getNearByPets(this.userLocation).subscribe((res) => {
-        res.forEach((cord: any) => {
+        this.Pets = res.res;
+        res.final.forEach((cord: any) => {
           this.initialMarkers.push({
             position: { lat: cord.coordinates[0], lng: cord.coordinates[1] },
             draggable: false,
@@ -95,11 +102,26 @@ export class LeafletComponent implements OnInit {
     for (let index = 0; index < this.initialMarkers.length; index++) {
       const data = this.initialMarkers[index];
       const marker = this.generateMarker(data, index);
-      if (index == 0) marker.setIcon(this.user);
-      else marker.setIcon(this.icon);
-      marker
-        .addTo(this.map)
-        .bindPopup(`<b>${data.position.lat},  ${data.position.lng}</b>`);
+      if (index == 0) {
+        marker.setIcon(this.icon);
+        marker.addTo(this.map).bindPopup(
+          `<div style="font-family:'Cormorant'">
+          <h6>You</h6>
+             </div>`
+        );
+      } else {
+        marker.setIcon(this.paw);
+        marker.addTo(this.map).bindPopup(
+          `<div style="font-family:'Cormorant'">
+          <h6>Name: ${this.Pets[index].Name} </h6>
+           <h6>Age:${this.Pets[index].Age}</h6>
+            <h6>City:${this.Pets[index].City}</h6>
+             <h6>Breed:${this.Pets[index].Breed1}</h6>
+              <h6>Know more:<a href="petview/${this.Pets[index].PetID}">Link</a></h6>
+             </div>`
+        );
+      }
+
       this.map.panTo(data.position);
       this.markers.push(marker);
     }
@@ -116,7 +138,6 @@ export class LeafletComponent implements OnInit {
   }
 
   markerClicked($event: any, index: number) {
-    console.log('a', $event);
     console.log($event.latlng.lat, $event.latlng.lng);
   }
 

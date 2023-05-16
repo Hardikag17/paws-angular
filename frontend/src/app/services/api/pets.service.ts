@@ -100,7 +100,7 @@ export class PetsService {
           res.forEach((element: any) => {
             final.push(element.location);
           });
-          return final;
+          return { final, res };
         })
       );
   };
